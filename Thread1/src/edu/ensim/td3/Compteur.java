@@ -21,6 +21,7 @@ public class Compteur extends Thread {
 			
 		}
 		System.out.println(name + " a fini de compter jusqu'a 10");
+		System.out.println(name + " a fini de compter jusqu'a 10");
 	}
 
 }
