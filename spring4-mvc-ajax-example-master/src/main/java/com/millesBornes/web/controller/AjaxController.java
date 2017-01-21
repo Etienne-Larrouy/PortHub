@@ -1,6 +1,6 @@
 package com.millesBornes.web.controller;
 
-import java.util.List;
+import java.io.IOException;
 
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,9 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.millesBornes.web.jsonview.Views;
 import com.millesBornes.web.model.AjaxResponseBody;
-import com.millesBornes.web.model.Batiment;
-import com.millesBornes.web.model.BatimentAjax;
 import com.millesBornes.web.model.Coords;
+import com.millesBornes.web.model.PagesJaunes;
 
 @RestController
 public class AjaxController {
@@ -34,21 +33,22 @@ public class AjaxController {
 	
 	}
 	
-	List<Batiment> batiments;
 
 	// @ResponseBody, not necessary, since class is annotated with @RestController
 	// @RequestBody - Convert the json data into object (SearchCriteria) mapped by field name.
 	// @JsonView(Views.Public.class) - Optional, limited the json data display to client.
 	@JsonView(Views.Public.class)
 	@RequestMapping(value = "/search/api/test")
-	public BatimentAjax test() {
+	public PagesJaunes test() throws IOException {
 
-		BatimentAjax result = new BatimentAjax();
-
-		result.ajouterBatiment(new Batiment("51.508", "-0.11"));
-		result.ajouterBatiment(new Batiment("45", "0.11"));
-
-		//AjaxResponseBody will be converted into json format and send back to client.
+		PagesJaunes result = new PagesJaunes();
+		result.chargerLocations("cZ-4.062577,48.520603");
+		
+		for(int i =0 ; i < result.getListTotal().size(); i++){
+			System.out.println(result.getListTotal().get(i));
+		}
+		System.out.println(result.getListTotal().size());
+		
 		return result;
 
 	}
