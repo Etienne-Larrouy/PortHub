@@ -11,26 +11,34 @@ import com.millesBornes.web.jsonview.Views;
 import com.millesBornes.web.model.AjaxResponseBody;
 import com.millesBornes.web.model.Batiment;
 import com.millesBornes.web.model.BatimentAjax;
-import com.millesBornes.web.model.Coords;
+import com.millesBornes.web.model.Move;
+import com.server.Server;
 
 @RestController
 public class AjaxController {
 
 
-	Coords c;
+	Move c;
 	@JsonView(Views.Public.class)
 	@RequestMapping(value = "/search/api/getCLickCoords")
-	public AjaxResponseBody getClickCoords(@RequestBody Coords clickCoords) {
+	public AjaxResponseBody getClickCoords(@RequestBody Move clickCoords) {
+		Server s = Server.getInstance();
+		
 		System.out.println(clickCoords.getLat());
 		System.out.println(clickCoords.getLng());
-		AjaxResponseBody result = new AjaxResponseBody();
-		Coords c = new Coords();
+		System.out.println(clickCoords.getDistance());
+		
+		s.getPlayer().setDistance(s.getPlayer().getDistance()+clickCoords.getDistance());;
+		
+		AjaxResponseBody move = new AjaxResponseBody();
+		Move c = new Move();
 		c.setLat(clickCoords.getLat());
 		c.setLng(clickCoords.getLng());
-		result.setCode("200");
-		result.setMsg("Ca marche !!");
-		result.setResult(c);
-		return result;
+		c.setRadius(5000);
+		move.setCode("200");
+		move.setMsg("Ca marche !!");
+		move.setResult(c);
+		return move;
 	
 	}
 	
