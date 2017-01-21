@@ -22,7 +22,7 @@ public class BrowserSample extends Application
 	primaryStage.setScene(scene);
 	primaryStage.show();
 	 
-	browser.loadURL("http://www.facebook.com");
+	browser.loadURL("http://www.facebook.com"); 
 	
 	}
 	 
