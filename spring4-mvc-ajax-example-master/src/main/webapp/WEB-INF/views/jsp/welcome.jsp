@@ -28,11 +28,11 @@
 
 <c:url var="home" value="/" scope="request" />
 
-<spring:url value="/resources/core/css/hello.css" var="coreCss" />
+
 <spring:url value="/resources/core/css/bootstrap.min.css"
 	var="bootstrapCss" />
 <link href="${bootstrapCss}" rel="stylesheet" />
-<link href="${coreCss}" rel="stylesheet" />
+
 
 <spring:url value="/resources/core/js/jquery.1.10.2.min.js"
 	var="jqueryJs" />
@@ -44,7 +44,23 @@
 	<div id="feedback"></div>
 
 <script>
-   L.Mappy.setImgPath("/images");
+	  var BatimentsIcon = L.Icon.extend({
+	  options: {
+		  iconSize:     [50, 50],
+		  iconAnchor:   [0,0]
+	}
+	});
+
+	var bankIcon = new BatimentsIcon({iconUrl: '/spring4ajax/resources/core/css/images/bank.png'}),
+	foodIcon = new BatimentsIcon({iconUrl: '/spring4ajax/resources/core/css/images/food.png'}),
+	garageIcon = new BatimentsIcon({iconUrl: '/spring4ajax/resources/core/css/images/garage.png'}),
+	iceIcon = new BatimentsIcon({iconUrl: '/spring4ajax/resources/core/css/images/ice.png'}),
+	manifIcon = new BatimentsIcon({iconUrl: '/spring4ajax/resources/core/css/images/manif.png'}),
+	radarIcon = new BatimentsIcon({iconUrl: '/spring4ajax/resources/core/css/images/radar.png'}),
+	sleepIcon = new BatimentsIcon({iconUrl: '/spring4ajax/resources/core/css/images/sleep.png'}),
+	trafficIcon = new BatimentsIcon({iconUrl: '/spring4ajax/resources/core/css/images/traffic.png'});
+
+   L.Mappy.setImgPath("/spring4ajax/resources/core/css/images/");
 	// Création de la carte
 	var exampleMap1 = new L.Mappy.Map("example-map-1", {
 		clientId: 'dri_24hducode',
@@ -138,6 +154,32 @@
 		currentLng =parseFloat(data.result.lng);
 
 
+	}
+
+	 initIcons(exampleMap1);
+
+	function initIcons(map) {
+
+		var search = {}
+		search["listeBatiment"]= $("#listeBatiment").val();
+
+		$.ajax({
+			type : "POST",
+			contentType : "application/json",
+			url : "${home}search/api/test",
+			data : JSON.stringify(search),
+			dataType : 'json',
+			timeout : 100000,
+			success : function(data) {
+		var mLayer = L.layerGroup().addTo(map);
+		var databis = data.listeBatiment;
+		for (var i in databis){
+		  console.log("SUCCESS: ", databis[i].lon);
+		  console.log("SUCCESS: ", databis[i].lat);
+		  var marker = L.marker([databis[i].lon, databis[i].lat],{icon: bankIcon}).addTo(map);
+		}
+			}
+		});
 	}
 
 
