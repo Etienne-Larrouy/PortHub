@@ -61,19 +61,34 @@
 	trafficIcon = new BatimentsIcon({iconUrl: '/spring4ajax/resources/core/css/images/traffic.png'});
 
    L.Mappy.setImgPath("/spring4ajax/resources/core/css/images/");
+
+	var move = {};
+	move["lat"] = e.latlng.lat;
+	move["lng"] =  e.latlng.lng;
+
+	var  oldLat = 51.5;
+	var  oldLng = -0.09;
+
+	$.ajax({
+		type : "POST",
+		url: "${home}search/api/initMap",
+		contentType : "application/json",
+		data : JSON.stringify(move),
+		dataType : 'json',
+		success : function(data) {
+			console.log("SUCCESS: ", data);
+			oldLat = data.result.lat;
+			oldLat = data.result.lng;
+		},
+	});
+
+
 	// Création de la carte
 	var exampleMap1 = new L.Mappy.Map("example-map-1", {
 		clientId: 'dri_24hducode',
-		center: [51.5,-0.09],
+		center: [oldLat,oldLng],
 		zoom: 7
 	});
-
-	var circle = L.circle([51.5, -0.09], {
-		color: 'red',
-		fillColor: '#f03',
-		fillOpacity: 0.5,
-		radius: 5000
-	}).addTo(exampleMap1).on("click", clickOnRange);
 
 	// Création d'un layer contenant les marqueurs à afficher
 	var mLayer = L.layerGroup().addTo(exampleMap1);
@@ -148,7 +163,10 @@
 		oldLat = parseFloat(e.latlng.lat);
 		oldLng = parseFloat(e.latlng.lng);
 	};
+
+
 	 initIcons(exampleMap1);
+
 
 	function initIcons(map) {
 
@@ -164,10 +182,10 @@
 			timeout : 100000,
 			success : function(data) {
 			console.log("SUCCESS", data.listTotal[0]);
-	  	var databis = data.listTotal;
+		  var databis = data.listTotal;
 			var mLayer = L.layerGroup().addTo(map);
 			var nb_banque=0, nb_nourriture=0, nb_garage=0, nb_dormir=0;
-	  	for (var i in databis){
+		  for (var i in databis){
 				if((databis[i].type=="banque")&&(nb_banque<15)){
 						var marker = L.marker([databis[i].latitude, databis[i].longitude],{icon: bankIcon}).addTo(map);
 						nb_banque=nb_banque+1;
