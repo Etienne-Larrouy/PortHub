@@ -1,4 +1,4 @@
-package com.mkyong.web.model;
+package com.millesBornes.web.model;
 
 public class SearchCriteria {
 
