@@ -2,15 +2,10 @@ package PortHub.WebBrowser;
 
 import java.io.IOException;
 
-import com.teamdev.jxbrowser.chromium.Browser;
-import com.teamdev.jxbrowser.chromium.javafx.BrowserView;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.SplitPane;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 public class BrowserSample extends Application
