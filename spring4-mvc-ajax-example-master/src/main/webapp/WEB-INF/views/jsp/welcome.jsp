@@ -128,16 +128,16 @@
 				console.log("Distance : " + move["distance"]);
 
 			$.ajax({
-			type : "POST",
-			url: "${home}search/api/getCLickCoords",
-			contentType : "application/json",
-			data : JSON.stringify(move),
-			dataType : 'json',
-			success : function(data) {
-				console.log("SUCCESS: ", data);
-			addPoint(data);
-		},
-		});
+				type : "POST",
+				url: "${home}search/api/getCLickCoords",
+				contentType : "application/json",
+				data : JSON.stringify(move),
+				dataType : 'json',
+				success : function(data) {
+					console.log("SUCCESS: ", data);
+					addPoint(data);
+				},
+			});
 			},
 			// Callback d'erreur
 			function(errorType) {
@@ -150,11 +150,8 @@
 	};
 
 
-
 	function addPoint(data) {
-		var json = "<h4>Ajax Response</h4><pre>"
-				+ JSON.stringify(data, null, 4) + "</pre>";
-		$('#feedback').html(json);
+
 
 
 
