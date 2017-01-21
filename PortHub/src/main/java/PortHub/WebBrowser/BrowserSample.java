@@ -25,35 +25,32 @@ public class BrowserSample extends Application
 	browser.loadURL("http://www.facebook.com"); 
 	*/
 		FXMLLoader root =  new FXMLLoader(getClass().getResource("../View/page_map.fxml"));
-//		 Scene scene = new Scene(root);
-//	        
-//		 primaryStage.setScene(scene);
-//		 primaryStage.show();
+        Browser browser = new Browser();
+        BrowserView view = new BrowserView(browser);
+
+        Scene scene = new Scene(new BorderPane(view), 700, 500);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+
+        browser.loadURL("http://www.google.com");
 	}
-	
-	
-	/*public class Main extends Application {
-	@Override
-	public void start(Stage primaryStage) {
-		try {
-			GridPane accueil = (GridPane) FXMLLoader.load(Main.class.getResource("../Interface/login.fxml"));
-			Scene scene = new Scene(accueil);
-			scene.setRoot(accueil);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			primaryStage.setScene(scene);
-			primaryStage.setResizable(false);
-			primaryStage.setTitle("CTM");
-			primaryStage.show();
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-	}
-	public static void main(String[] args) {
-		launch(args);
-	}
-}*/
 	 
 	public static void main(String[] args) {
 		launch(args);
 	}
+	/*Stage stage = null;
+		Parent root = null;
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/Task.fxml"));
+		
+	
+		ControllerTask controller = new ControllerTask(s.getObservableListTasks().get(Integer.parseInt(TaskPreview_id.getText())));
+	        // Set it in the FXMLLoader
+		loader.setController(controller);
+
+		stage = (Stage) ((GridPane)event.getSource()).getScene().getWindow();
+		
+		root = (Parent)loader.load();
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();*/
 }
