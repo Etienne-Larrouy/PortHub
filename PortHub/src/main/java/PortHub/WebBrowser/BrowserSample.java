@@ -1,17 +1,21 @@
 package PortHub.WebBrowser;
 
+import java.io.IOException;
+
 import com.teamdev.jxbrowser.chromium.Browser;
 import com.teamdev.jxbrowser.chromium.javafx.BrowserView;
 
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class BrowserSample extends Application
 {    
-	public void start(final Stage primaryStage) {
-	Browser browser = new Browser();
+	public void start(final Stage primaryStage) throws IOException {
+	/*Browser browser = new Browser();
 	BrowserView view = new BrowserView(browser);
 	 
 	Scene scene = new Scene(new BorderPane(view), 700, 500);
@@ -19,7 +23,12 @@ public class BrowserSample extends Application
 	primaryStage.show();
 	 
 	browser.loadURL("http://www.facebook.com"); 
-	
+	*/
+		FXMLLoader root =  new FXMLLoader(getClass().getResource("../View/page_map.fxml"));
+//		 Scene scene = new Scene(root);
+//	        
+//		 primaryStage.setScene(scene);
+//		 primaryStage.show();
 	}
 	
 	
