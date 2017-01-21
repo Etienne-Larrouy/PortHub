@@ -28,10 +28,7 @@ public class Card_bonus extends Card {
 		}
 		if(bonus.equals("car")){
 			System.out.println("pickpoccarket");
-		}
-		
-		
-		
+		}	
 	}
 
 }

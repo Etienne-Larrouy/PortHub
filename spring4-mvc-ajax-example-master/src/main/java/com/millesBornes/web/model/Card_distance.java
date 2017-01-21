@@ -23,4 +23,7 @@ public class Card_distance extends Card {
 		this.distance = distance;
 	}
 
+	public void Action(Player player,int dist){
+		player.setDistance(dist);	
+	}
 }

@@ -35,7 +35,7 @@ public class Player {
 		
 		//this.list_card_player.set(nb_card, null);
 		this.list_card_player.get(nb_card).setEtat(false);
-		display_list_card();
+		//display_list_card();
 	}
 	
 	
@@ -85,7 +85,7 @@ public class Player {
 
 
 	public void setDistance(double d) {
-		this.distance = d;
+		this.distance += d;
 	}
 
 

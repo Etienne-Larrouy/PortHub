@@ -6,6 +6,7 @@ public final class Server {
 
 
 	private final static Server serverInstance = new Server();
+	
 	private Player p1 = new Player("Joueur1");
 
 	public static Server getInstance() {
