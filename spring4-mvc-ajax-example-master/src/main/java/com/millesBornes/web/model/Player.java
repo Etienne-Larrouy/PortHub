@@ -84,8 +84,8 @@ public class Player {
 	}
 
 
-	public void setDistance(int distance) {
-		this.distance += distance;
+	public void setDistance(double d) {
+		this.distance += d;
 	}
 
 
