@@ -1,16 +1,12 @@
 package PortHub.WebBrowser;
 
-import com.teamdev.jxbrowser.chromium.javafx.BrowserView;
 import com.teamdev.jxbrowser.chromium.Browser;
 import com.teamdev.jxbrowser.chromium.javafx.BrowserView;
- 
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-
-import javax.swing.*;
-import java.awt.*;
 
 public class BrowserSample extends Application
 {    
