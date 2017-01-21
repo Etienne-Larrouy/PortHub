@@ -68,12 +68,12 @@
 		zoom: 7
 	});
 
-	var circle = L.circle([51.508, -0.11], {
+	var circle = L.circle([51.5, -0.09], {
 		color: 'red',
 		fillColor: '#f03',
 		fillOpacity: 0.5,
-		radius: 500
-	}).addTo(exampleMap1);
+		radius: 5000
+	}).addTo(exampleMap1).on("click", clickOnRange);
 
 	// Création d'un layer contenant les marqueurs à afficher
 	var mLayer = L.layerGroup().addTo(exampleMap1);
@@ -81,46 +81,29 @@
 	var marker = L.marker([51.5, -0.09]).addTo(exampleMap1);
 
 	// Désactivation des interactions utilisateurs
-
-	exampleMap1.on('click', function (e) {
-
-		var coords = {};
-		coords["lat"] = e.latlng.lat;
-		coords["lng"] =  e.latlng.lng;
-
-
-		$.ajax({
-			type : "POST",
-			url: "${home}search/api/getCLickCoords",
-			contentType : "application/json",
-			data : JSON.stringify(coords),
-			dataType : 'json',
-			success : function(data) {
-				console.log("SUCCESS: ", data);
-			addPoint(data);
-		},
-		});
-	});
 	var  total = 0;
-	var  currentLat = 51.5;
-	var  currentLng = -0.09;
+	var  oldLat = 51.5;
+	var  oldLng = -0.09;
+	var radius = 5000;
 
-	function addPoint(data) {
-		var json = "<h4>Ajax Response</h4><pre>"
-				+ JSON.stringify(data, null, 4) + "</pre>";
-		$('#feedback').html(json);
+	function clickOnRange(e) {
+
+		var move = {};
+		move["lat"] = e.latlng.lat;
+		move["lng"] =  e.latlng.lng;
 
 		exampleMap1.removeLayer(marker);
 
-		marker = L.marker([parseFloat(data.result.lat),parseFloat(data.result.lng)]).addTo(exampleMap1);
+		marker = L.marker([e.latlng.lat,e.latlng.lng]).addTo(exampleMap1);
 		exampleMap1.removeLayer(circle);
 
-		circle = L.circle([parseFloat(data.result.lat),parseFloat(data.result.lng)], {
+		circle = L.circle([e.latlng.lat, e.latlng.lng], {
 			color: 'red',
 			fillColor: '#f03',
 			fillOpacity: 0.5,
-			radius: 1000
-		}).addTo(exampleMap1);
+			radius: radius
+		}).addTo(exampleMap1).on("click", clickOnRange);
+
 
 		var options = {
 			vehicle: L.Mappy.Vehicles.comcar,
@@ -134,24 +117,37 @@
 
 
 		// On cherche les résultats pour "47 rue de charonne Paris"
-		L.Mappy.Services.route([L.latLng(parseFloat(data.result.lat), parseFloat(data.result.lng)), L.latLng(currentLat, currentLng)],
+		L.Mappy.Services.route([L.latLng(e.latlng.lat, e.latlng.lng), L.latLng(oldLat, oldLng)],
 			options,
 			// Callback de succès
 			function(result) {
 				L.Mappy.route(result.routes).addTo(exampleMap1);
 				var summary = result.routes.route[0].summary;
 				var roadbook = result.routes.route[0].actions.action;
-				total = total + (summary.length / 1000);
-				alert(total);
+				move["distance"] = (summary.length / 1000);
+				console.log("Distance : " + move["distance"]);
+
+			$.ajax({
+				type : "POST",
+				url: "${home}search/api/getCLickCoords",
+				contentType : "application/json",
+				data : JSON.stringify(move),
+				dataType : 'json',
+				success : function(data) {
+					console.log("SUCCESS: ", data);
+					addPoint(data);
+				},
+			});
 			},
 			// Callback d'erreur
 			function(errorType) {
 				// Error during route calculation
 			}
 		);
-		currentLat = parseFloat(data.result.lat);
-		currentLng =parseFloat(data.result.lng);
-	}
+
+		oldLat = parseFloat(e.latlng.lat);
+		oldLng = parseFloat(e.latlng.lng);
+	};
 	 initIcons(exampleMap1);
 
 	function initIcons(map) {
