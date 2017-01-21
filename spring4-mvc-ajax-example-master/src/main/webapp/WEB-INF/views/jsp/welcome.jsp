@@ -41,6 +41,7 @@
  <body>
 
     <div id="example-map-1" style="width:100%; height: 900px;"></div>
+    <div id="feedback"></div>
 
 <script>
    L.Mappy.setImgPath("/images");
@@ -64,8 +65,37 @@
     var marker = L.marker([51.5, -0.09]).addTo(exampleMap1);
 
     // Désactivation des interactions utilisateurs
-    exampleMap1.disableInteractions();
- 
+
+    exampleMap1.on('click', function (e) {
+
+        var coords = {};
+        coords["lat"] = e.latlng.lat;
+        coords["lng"] =  e.latlng.lng;
+
+
+        $.ajax({
+            type : "POST",
+            url: "${home}search/api/getCLickCoords",
+            contentType : "application/json",
+            data : JSON.stringify(coords),
+            dataType : 'json',
+            success : function(data) {
+                console.log("SUCCESS: ", data);
+            addPoint(data);
+        },
+        });
+    });
+
+    function addPoint(data) {
+        var json = "<h4>Ajax Response</h4><pre>"
+                + JSON.stringify(data, null, 4) + "</pre>";
+        $('#feedback').html(json);
+
+        exampleMap1.removeLayer(marker);
+
+        marker = L.marker([parseFloat(data.result.lat),parseFloat(data.result.lng)]).addTo(exampleMap1);
+    }
+
 
 </script>
 
