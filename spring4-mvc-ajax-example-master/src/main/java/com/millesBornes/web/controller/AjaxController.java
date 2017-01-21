@@ -1,4 +1,4 @@
-package com.mkyong.web.controller;
+package com.millesBornes.web.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.mkyong.web.jsonview.Views;
-import com.mkyong.web.model.AjaxResponseBody;
-import com.mkyong.web.model.SearchCriteria;
-import com.mkyong.web.model.User;
+import com.millesBornes.web.jsonview.Views;
+import com.millesBornes.web.model.AjaxResponseBody;
+import com.millesBornes.web.model.SearchCriteria;
+import com.millesBornes.web.model.User;
 
 @RestController
 public class AjaxController {

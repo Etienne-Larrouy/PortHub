@@ -1,7 +1,7 @@
-package com.mkyong.web.model;
+package com.millesBornes.web.model;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.mkyong.web.jsonview.Views;
+import com.millesBornes.web.jsonview.Views;
 
 public class User {
 

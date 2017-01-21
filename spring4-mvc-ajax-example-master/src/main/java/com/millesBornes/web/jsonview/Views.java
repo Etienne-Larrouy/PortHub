@@ -1,4 +1,4 @@
-package com.mkyong.web.jsonview;
+package com.millesBornes.web.jsonview;
 
 public class Views {
     public static class Public {}
