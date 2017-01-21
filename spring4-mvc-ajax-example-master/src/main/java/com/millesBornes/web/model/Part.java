@@ -2,14 +2,20 @@ package com.millesBornes.web.model;
 
 import java.util.ArrayList;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.millesBornes.web.jsonview.Views;
+
 public class Part {
 	
 	//Attributes
+	@JsonView(Views.Public.class)
 	private ArrayList <Player> list_Player;
 	private ArrayList<Card> pack_card;
 	private String IP;
 	private int nb_player;
+	@JsonView(Views.Public.class)
 	private double departLatitude= 48.00611;
+	@JsonView(Views.Public.class)
 	private double departLongitude= 0.199556;
 	
 

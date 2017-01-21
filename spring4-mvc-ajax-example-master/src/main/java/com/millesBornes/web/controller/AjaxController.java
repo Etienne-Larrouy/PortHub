@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.millesBornes.web.jsonview.Views;
 import com.millesBornes.web.model.AjaxResponseBody;
+import com.millesBornes.web.model.AjaxResponseInit;
 import com.millesBornes.web.model.Move;
+import com.millesBornes.web.model.Part;
 import com.millesBornes.web.model.PagesJaunes;
 import com.server.Server;
 
@@ -27,7 +29,7 @@ public class AjaxController {
 		System.out.println(clickCoords.getLng());
 		System.out.println(clickCoords.getDistance());
 		
-		s.getPartie().getList_Player().get(0).setDistance(s.getPartie().getList_Player().get(0).getDistance()+clickCoords.getDistance());;
+		s.partie().getList_Player().get(0).setDistance(s.partie().getList_Player().get(0).getDistance()+clickCoords.getDistance());;
 		
 		AjaxResponseBody move = new AjaxResponseBody();
 		Move c = new Move();
@@ -41,12 +43,15 @@ public class AjaxController {
 	
 	}
 	
-		@JsonView(Views.Public.class)
+	@JsonView(Views.Public.class)
 	@RequestMapping(value = "/search/api/initMap")
-	public AjaxResponseBody initMap() {
+	public AjaxResponseInit initMap() {
 		Server s = Server.getInstance();
 		
-		return s.getPartie();
+		AjaxResponseInit partie = new AjaxResponseInit();
+		
+		partie.setResult(s.partie());
+		return partie;
 	}
 	
 	// @ResponseBody, not necessary, since class is annotated with @RestController
