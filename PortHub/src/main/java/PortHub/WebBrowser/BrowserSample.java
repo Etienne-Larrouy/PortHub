@@ -23,6 +23,7 @@ public class BrowserSample extends Application
 	primaryStage.show();
 	 
 	browser.loadURL("http://www.facebook.com");
+	
 	}
 	 
 	public static void main(String[] args) {
