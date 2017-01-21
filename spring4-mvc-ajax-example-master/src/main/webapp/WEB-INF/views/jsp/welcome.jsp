@@ -15,12 +15,12 @@
 <link rel="stylesheet"  href="${mappyCss}" />
 
 <spring:url value="/resources/core/js/leaflet.js"
-    var="leafletJs" />
+	var="leafletJs" />
 <script src="${leafletJs}"></script>
 <spring:url value="/resources/core/js/L.Mappy-src.js" var="mappysrcJs" />
 <script src="${mappysrcJs}"></script>
 <spring:url value="/resources/core/js/L.Mappy.js"
-    var="mappyJs" />
+	var="mappyJs" />
 <script src="${mappyJs}"></script>
 
 
@@ -30,26 +30,117 @@
 
 <spring:url value="/resources/core/css/hello.css" var="coreCss" />
 <spring:url value="/resources/core/css/bootstrap.min.css"
-    var="bootstrapCss" />
+	var="bootstrapCss" />
 <link href="${bootstrapCss}" rel="stylesheet" />
 <link href="${coreCss}" rel="stylesheet" />
 
 <spring:url value="/resources/core/js/jquery.1.10.2.min.js"
-    var="jqueryJs" />
+	var="jqueryJs" />
 <script src="${jqueryJs}"></script>
 </head>
  <body>
 
-    <div id="example-map-1" style="width:100%; height: 900px;"></div>
+	<div id="example-map-1" style="width:100%; height: 900px;"></div>
+	<div id="feedback"></div>
 
 <script>
    L.Mappy.setImgPath("/images");
-    // Création de la carte
-    var exampleMap1 = new L.Mappy.Map("example-map-1", {
-        clientId: 'dri_24hducode',
-        center: [43.6044, 1.44295],
-        zoom: 7
-    });
+	// Création de la carte
+	var exampleMap1 = new L.Mappy.Map("example-map-1", {
+		clientId: 'dri_24hducode',
+		center: [51.5,-0.09],
+		zoom: 7
+	});
+
+	var circle = L.circle([51.508, -0.11], {
+		color: 'red',
+		fillColor: '#f03',
+		fillOpacity: 0.5,
+		radius: 500
+	}).addTo(exampleMap1);
+
+	// Création d'un layer contenant les marqueurs à afficher
+	var mLayer = L.layerGroup().addTo(exampleMap1);
+	// Création d'un marqueur qu'on ajoute au layer
+	var marker = L.marker([51.5, -0.09]).addTo(exampleMap1);
+
+	// Désactivation des interactions utilisateurs
+
+	exampleMap1.on('click', function (e) {
+
+		var coords = {};
+		coords["lat"] = e.latlng.lat;
+		coords["lng"] =  e.latlng.lng;
+
+
+		$.ajax({
+			type : "POST",
+			url: "${home}search/api/getCLickCoords",
+			contentType : "application/json",
+			data : JSON.stringify(coords),
+			dataType : 'json',
+			success : function(data) {
+				console.log("SUCCESS: ", data);
+			addPoint(data);
+		},
+		});
+	});
+	var  total = 0;
+	var  currentLat = 51.5;
+	var  currentLng = -0.09;
+
+	function addPoint(data) {
+		var json = "<h4>Ajax Response</h4><pre>"
+				+ JSON.stringify(data, null, 4) + "</pre>";
+		$('#feedback').html(json);
+
+		exampleMap1.removeLayer(marker);
+
+		marker = L.marker([parseFloat(data.result.lat),parseFloat(data.result.lng)]).addTo(exampleMap1);
+		exampleMap1.removeLayer(circle);
+
+		circle = L.circle([parseFloat(data.result.lat),parseFloat(data.result.lng)], {
+			color: 'red',
+			fillColor: '#f03',
+			fillOpacity: 0.5,
+			radius: 1000
+		}).addTo(exampleMap1);
+
+		var options = {
+			vehicle: L.Mappy.Vehicles.comcar,
+			cost: "length", // or "time" or "price"
+			gascost: 1.0,
+			gas: "petrol", // or diesel, lpg
+			nopass: 0, // 1 pour un trajet sans col
+			notoll: 0, // 1 pour un trajet sans péage
+			infotraffic: 0 // 1 pour un trajet avec trafic
+		};
+
+
+		// On cherche les résultats pour "47 rue de charonne Paris"
+		L.Mappy.Services.route([L.latLng(parseFloat(data.result.lat), parseFloat(data.result.lng)), L.latLng(currentLat, currentLng)],
+			options,
+			// Callback de succès
+			function(result) {
+				L.Mappy.route(result.routes).addTo(exampleMap1);
+				var summary = result.routes.route[0].summary;
+				var roadbook = result.routes.route[0].actions.action;
+				total = total + (summary.length / 1000);
+				alert(total);
+			},
+			// Callback d'erreur
+			function(errorType) {
+				// Error during route calculation
+			}
+		);
+
+		currentLat = parseFloat(data.result.lat);
+		currentLng =parseFloat(data.result.lng);
+
+
+	}
+
+
 </script>
 
 </body>
