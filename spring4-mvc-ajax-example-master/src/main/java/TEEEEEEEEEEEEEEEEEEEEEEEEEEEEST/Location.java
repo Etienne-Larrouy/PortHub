@@ -5,14 +5,25 @@ public class Location {
 	private String name;
 	private float latitude;
 	private float longitude;
+	private String type;
 	
+	public String getType() {
+		return type;
+	}
+
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+
 	public Location() {
 	}
 	
-	
 	@Override
 	public String toString() {
-		return "Location [name=" + name + ", latitude=" + latitude + ", longitude=" + longitude + "]";
+		return "Location [name=" + name + ", latitude=" + latitude + ", longitude=" + longitude + ", type=" + type
+				+ "]";
 	}
 
 
