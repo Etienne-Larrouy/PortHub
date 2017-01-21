@@ -28,7 +28,7 @@ public class AjaxController {
 		System.out.println(clickCoords.getLng());
 		System.out.println(clickCoords.getDistance());
 		
-		s.getPlayer().setDistance(s.getPlayer().getDistance()+clickCoords.getDistance());;
+		s.getPartie().getList_Player().get(0).setDistance(s.getPartie().getList_Player().get(0).getDistance()+clickCoords.getDistance());;
 		
 		AjaxResponseBody move = new AjaxResponseBody();
 		Move c = new Move();

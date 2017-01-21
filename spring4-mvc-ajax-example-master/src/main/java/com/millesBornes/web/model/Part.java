@@ -9,6 +9,8 @@ public class Part {
 	private ArrayList<Card> pack_card;
 	private String IP;
 	private int nb_player;
+	private double departLatitude= 48.00611;
+	private double departLongitude= 0.199556;
 	
 
 	public Part(String IP,int nb_player){
