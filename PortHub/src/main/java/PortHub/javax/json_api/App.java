@@ -1,6 +1,6 @@
 package PortHub.javax.json_api;
 
-import org.json.simple.JSONObject;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 
 /**
  * Hello world!
@@ -8,7 +8,7 @@ import org.json.simple.JSONObject;
  */
 public class App 
 {
-	JSONObject json;
+	JSONPObject json;
 	
     public static void main( String[] args )
     {
