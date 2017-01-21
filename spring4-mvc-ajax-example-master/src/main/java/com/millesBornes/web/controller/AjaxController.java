@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.millesBornes.web.jsonview.Views;
 import com.millesBornes.web.model.AjaxResponseBody;
 import com.millesBornes.web.model.Move;
+import com.millesBornes.web.model.PagesJaunes;
 import com.server.Server;
 
 @RestController
