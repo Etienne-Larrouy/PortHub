@@ -6,7 +6,7 @@ public class Player {
 
 	//Attributes
 	private String pseudo;
-	private int distance;
+	private double distance;
 	private int hunger;
 	private int sleep;
 	private ArrayList<Card> list_card_player;
@@ -79,13 +79,13 @@ public class Player {
 	}
 
 
-	public int getDistance() {
+	public double getDistance() {
 		return distance;
 	}
 
 
-	public void setDistance(int distance) {
-		this.distance = distance;
+	public void setDistance(double d) {
+		this.distance = d;
 	}
 
 
