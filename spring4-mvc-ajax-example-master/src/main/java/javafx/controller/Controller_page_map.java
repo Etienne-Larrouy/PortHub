@@ -1,4 +1,4 @@
-package PortHub.WebBrowser.Controller;
+package javafx.controller;
 
 import javafx.event.ActionEvent;
 

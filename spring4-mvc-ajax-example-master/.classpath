@@ -27,5 +27,6 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/check_000/Downloads/PortHub/PortHub/PortHub/PortHub/Lib/license.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

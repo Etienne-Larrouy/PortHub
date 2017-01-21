@@ -1,4 +1,4 @@
-package PortHub.WebBrowser;
+package javafx.main;
 
 import java.io.IOException;
 
@@ -16,7 +16,7 @@ public class BrowserSample extends Application
 
 		
 		
-		SplitPane page =  (SplitPane) FXMLLoader.load(BrowserSample.class.getResource("/View/page_map.fxml"));
+		SplitPane page =  (SplitPane) FXMLLoader.load(BrowserSample.class.getResource("/javafx/view/page_map.fxml"));
 		Scene scene = new Scene(page);
 		primaryStage.setScene(scene);
 		scene.setRoot(page);

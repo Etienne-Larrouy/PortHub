@@ -7,6 +7,14 @@
 	<version>1.0-SNAPSHOT</version>
 	<name>spring4 mvc maven ajax example</name>
 
+
+	<repositories>
+		<repository>
+			<id>com.teamdev</id>
+			<url>http://maven.teamdev.com/repository/products</url>
+		</repository>
+	</repositories>
+
 	<properties>
 		<jdk.version>1.8</jdk.version>
 		<spring.version>4.2.2.RELEASE</spring.version>
@@ -18,6 +26,12 @@
 	</properties>
 
 	<dependencies>
+
+		<dependency>
+			<groupId>com.teamdev.jxbrowser</groupId>
+			<artifactId>jxbrowser-win</artifactId>
+			<version>6.0</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework</groupId>

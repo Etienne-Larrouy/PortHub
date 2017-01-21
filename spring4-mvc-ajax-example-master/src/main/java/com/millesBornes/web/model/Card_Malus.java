@@ -1,4 +1,4 @@
-package Model;
+package com.millesBornes.web.model;
 
 
 public class Card_Malus extends Card{
