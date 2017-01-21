@@ -1,4 +1,4 @@
-package TEEEEEEEEEEEEEEEEEEEEEEEEEEEEST;
+package com.millesBornes.web.model;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,12 +12,20 @@ import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.json.simple.parser.JSONParser;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.millesBornes.web.jsonview.Views;
+
 public class PagesJaunes {
+	
+	@JsonView(Views.Public.class)
+	ArrayList<Location> listTotal = new ArrayList<Location>();
+	
+	public ArrayList<Location> getListTotal() {
+		return listTotal;
+	}
 
-	public static void main(String[] args) throws IOException {
-
-		ArrayList<Location> listTotal = new ArrayList<Location>();
-		listTotal = finalList("rennes");
+	public void chargerLocations(String ville) throws IOException{
+		listTotal = finalList(ville);
 	}
 
 	/**
@@ -32,13 +40,13 @@ public class PagesJaunes {
 		listFood = searchLocation(town, "nourriture");
 
 		ArrayList<Location> listGarage = new ArrayList<Location>();
-		listFood = searchLocation(town, "garage");
+		listGarage = searchLocation(town, "garage");
 
 		ArrayList<Location> listSleep = new ArrayList<Location>();
-		listFood = searchLocation(town, "dormir");
+		listSleep = searchLocation(town, "dormir");
 
 		ArrayList<Location> listBank = new ArrayList<Location>();
-		listFood = searchLocation(town, "banque");
+		listBank = searchLocation(town, "banque");
 
 		ArrayList<Location> listTotal = new ArrayList<Location>();
 		listTotal.addAll(listBank);
@@ -181,9 +189,6 @@ public class PagesJaunes {
 
 		}
 
-		for (int i = 0; i < location_list.size(); i++) {
-			System.out.println(location_list.get(i).toString());
-		}
 		return location_list;
 
 	}

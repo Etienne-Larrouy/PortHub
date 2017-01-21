@@ -128,16 +128,16 @@
 				console.log("Distance : " + move["distance"]);
 
 			$.ajax({
-			type : "POST",
-			url: "${home}search/api/getCLickCoords",
-			contentType : "application/json",
-			data : JSON.stringify(move),
-			dataType : 'json',
-			success : function(data) {
-				console.log("SUCCESS: ", data);
-			addPoint(data);
-		},
-		});
+				type : "POST",
+				url: "${home}search/api/getCLickCoords",
+				contentType : "application/json",
+				data : JSON.stringify(move),
+				dataType : 'json',
+				success : function(data) {
+					console.log("SUCCESS: ", data);
+					addPoint(data);
+				},
+			});
 			},
 			// Callback d'erreur
 			function(errorType) {
@@ -148,25 +148,12 @@
 		oldLat = parseFloat(e.latlng.lat);
 		oldLng = parseFloat(e.latlng.lng);
 	};
-
-
-
-	function addPoint(data) {
-		var json = "<h4>Ajax Response</h4><pre>"
-				+ JSON.stringify(data, null, 4) + "</pre>";
-		$('#feedback').html(json);
-
-
-
-
-	}
-
 	 initIcons(exampleMap1);
 
 	function initIcons(map) {
 
 		var search = {}
-		search["listeBatiment"]= $("#listeBatiment").val();
+		search["listTotal"]= $("#listTotal").val();
 
 		$.ajax({
 			type : "POST",
@@ -176,13 +163,28 @@
 			dataType : 'json',
 			timeout : 100000,
 			success : function(data) {
-		var mLayer = L.layerGroup().addTo(map);
-		var databis = data.listeBatiment;
-		for (var i in databis){
-		  console.log("SUCCESS: ", databis[i].lon);
-		  console.log("SUCCESS: ", databis[i].lat);
-		  var marker = L.marker([databis[i].lon, databis[i].lat],{icon: bankIcon}).addTo(map);
-		}
+			console.log("SUCCESS", data.listTotal[0]);
+	  	var databis = data.listTotal;
+			var mLayer = L.layerGroup().addTo(map);
+			var nb_banque=0, nb_nourriture=0, nb_garage=0, nb_dormir=0;
+	  	for (var i in databis){
+				if((databis[i].type=="banque")&&(nb_banque<15)){
+						var marker = L.marker([databis[i].latitude, databis[i].longitude],{icon: bankIcon}).addTo(map);
+						nb_banque=nb_banque+1;
+				}
+				if((databis[i].type=="nourriture")&&(nb_nourriture<15)){
+						var marker = L.marker([databis[i].latitude, databis[i].longitude],{icon: foodIcon}).addTo(map);
+						nb_nourriture=nb_nourriture+1;
+				}
+				if((databis[i].type=="garage")&&(nb_garage<15)){
+						var marker = L.marker([databis[i].latitude, databis[i].longitude],{icon: garageIcon}).addTo(map);
+						nb_garage=nb_garage+1;
+				}
+				if((databis[i].type=="dormir")&&(nb_dormir<15)){
+						var marker = L.marker([databis[i].latitude, databis[i].longitude],{icon: sleepIcon}).addTo(map);
+						nb_dormir=nb_dormir+1;
+				}
+			}
 			}
 		});
 	}

@@ -1,10 +1,17 @@
-package TEEEEEEEEEEEEEEEEEEEEEEEEEEEEST;
+package com.millesBornes.web.model;
+
+import com.fasterxml.jackson.annotation.JsonView;
+import com.millesBornes.web.jsonview.Views;
 
 public class Location {
 	
+	@JsonView(Views.Public.class)
 	private String name;
+	@JsonView(Views.Public.class)
 	private float latitude;
+	@JsonView(Views.Public.class)
 	private float longitude;
+	@JsonView(Views.Public.class)
 	private String type;
 	
 	public String getType() {
