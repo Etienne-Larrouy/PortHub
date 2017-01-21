@@ -22,7 +22,8 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="D:/Antoine/24/jxbrowser-3.0.jar"/>
-	<classpathentry kind="lib" path="D:/Antoine/24/jxbrowser-2.8.jar"/>
+	<classpathentry kind="lib" path="D:/Antoine/24/jxbrowser-6.11.1.jar"/>
+	<classpathentry kind="lib" path="D:/Antoine/24/jxbrowser-win-6.11.1.jar"/>
+	<classpathentry kind="lib" path="D:/Antoine/24/license.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
