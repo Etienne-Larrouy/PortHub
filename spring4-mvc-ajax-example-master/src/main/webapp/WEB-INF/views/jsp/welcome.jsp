@@ -62,10 +62,6 @@
 
    L.Mappy.setImgPath("/spring4ajax/resources/core/css/images/");
 
-	var move = {};
-	move["lat"] = e.latlng.lat;
-	move["lng"] =  e.latlng.lng;
-
 	var  oldLat = 51.5;
 	var  oldLng = -0.09;
 
@@ -73,8 +69,6 @@
 		type : "POST",
 		url: "${home}search/api/initMap",
 		contentType : "application/json",
-		data : JSON.stringify(move),
-		dataType : 'json',
 		success : function(data) {
 			console.log("SUCCESS: ", data);
 			oldLat = data.result.lat;
