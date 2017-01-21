@@ -31,7 +31,7 @@ public class Controller_page_map implements Initializable {
 
         System.out.println("toto");
 
-        browser.loadURL("facebook.com");
+        browser.loadURL("http://localhost:8080/spring4ajax/#");
        
        // map.getChildren().add(new Button("tttt"));
        map.getChildren().add(browserView);
