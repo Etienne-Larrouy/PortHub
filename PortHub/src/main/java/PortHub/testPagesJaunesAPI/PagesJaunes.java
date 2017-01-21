@@ -1,13 +1,14 @@
 package PortHub.testPagesJaunesAPI;
 
 import java.io.BufferedReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 public class PagesJaunes {
 
@@ -20,13 +21,13 @@ public class PagesJaunes {
 		json = jsonParser(retourDeLaPage);
 
 		// Export in a JSON file
-		/*
-		 * FileWriter file = new
-		 * FileWriter("C:\\Users\\cleme\\Desktop\\file1.json");
-		 * file.write(json.toJSONString());
-		 * System.out.println("Successfully Copied JSON Object to File...");
-		 * System.out.println("\nJSON Object: " + json);
-		 */
+		
+		 FileWriter file = new
+		 FileWriter("C:\\Users\\cleme\\Desktop\\file1.json");
+		 file.write(json.toString());
+		 System.out.println("Successfully Copied JSON Object to File...");
+		 System.out.println("\nJSON Object: " + json);
+		 
 	}
 
 	/**
@@ -66,13 +67,14 @@ public class PagesJaunes {
 	public static JSONObject jsonParser(String yellowPageResponse) {
 		JSONParser parser = new JSONParser();
 		JSONObject json = new JSONObject();
-		try {
-			json = (JSONObject) parser.parse(yellowPageResponse);
-			System.out.println("Parsage reussi");
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	
+			try {
+				json = (JSONObject) parser.parse(yellowPageResponse);
+			} catch (org.json.simple.parser.ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+		
 		return json;
 	}
 }
