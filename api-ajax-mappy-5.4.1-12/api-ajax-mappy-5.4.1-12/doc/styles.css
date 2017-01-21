@@ -1,0 +1,266 @@
+/* Common style with widgets */
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    font-family: inherit;
+}
+
+html, body, th, td, input, select, textarea {
+    font: normal 16px 'Georgia', serif;
+}
+
+body, th, td {
+    line-height: 1.4;
+    color: #333;
+}
+
+.mainWrapper {
+    width: 900px;
+    margin: 0 auto;
+    background-color: #fff;
+}
+
+h1, h2, h3 {
+    color: #333;
+    font-weight: 400;
+    font-family: 'Vollkorn', 'Georgia', serif;
+}
+
+h1, h2, h3, p, ul, ol {
+    margin-bottom: 24px;
+}
+
+h1 {
+    clear: both;
+    font-size: 48px;
+    margin-top: 40px;
+    letter-spacing: -2px;
+    color:#79A40B;
+    background: url(./logo.png) no-repeat right 13px;
+}
+
+h1 a {
+    color: #333;
+    text-decoration: none;
+}
+
+h2 {
+    font-size: 36px;
+    color:#00346B;
+    border-bottom:1px solid #00346B;
+}
+
+h3 {
+    font-size: 24px;
+    color:#36A7D3;
+}
+
+a {
+    color: #1BA3FD;
+}
+
+a:hover, a:focus {
+    color: #CA6883;
+}
+
+a img {
+    vertical-align: top;
+}
+
+p, ul, ol {
+    margin: 15px 0 25px 0;
+}
+
+
+p.h {
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
+ol, ul {
+    padding-left: 24px;
+}
+
+table {
+    width: 100%;
+}
+
+th, td {
+    padding: 5px 10px 5px 20px;
+}
+
+th {
+    text-align: left;
+    font-weight: bold;
+    border-bottom-width: 2px;
+}
+
+td {
+    vertical-align: top;
+}
+
+td p {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+table tr:last-child td {
+    border-bottom: none;
+}
+
+textarea {
+    resize: vertical;
+}
+
+label {
+    display: block;
+    text-align: right;
+}
+
+code, pre {
+    font-size: 14px;
+    font-family: monospace;
+}
+
+.like-highlighted {
+    display: block;
+    margin-bottom: 20px;
+    padding: 10px 15px;
+    border: 1px solid #DDD;
+    white-space: pre;
+}
+
+@media screen {
+    .str { color: #080 }  /* string content */
+    .kwd { color: #008 }  /* a keyword */
+    .com { color: #800 }  /* a comment */
+    .typ { color: #606 }  /* a type name */
+    .lit { color: #066 }  /* a literal value */
+    /* punctuation, lisp open bracket, lisp close bracket */
+    .pun, .opn, .clo { color: #660 }
+    .tag { color: #008 }  /* a markup tag name */
+    .atn { color: #606 }  /* a markup attribute name */
+    .atv { color: #080 }  /* a markup attribute value */
+    .dec, .var { color: #606 }  /* a declaration; a variable name */
+    .fun { color: red }  /* a function name */
+    .italic { font-style: italic; }
+}
+
+@media print, projection {
+    .str { color: #060 }
+    .kwd { color: #006; font-weight: bold }
+    .com { color: #600; font-style: italic }
+    .typ { color: #404; font-weight: bold }
+    .lit { color: #044 }
+    .pun, .opn, .clo { color: #440 }
+    .tag { color: #006; font-weight: bold }
+    .atn { color: #404 }
+    .atv { color: #060 }
+}
+
+.graphSite {
+    width: 80%;
+    background-color: #ddd;
+    padding: 10px;
+    margin: 20px auto;
+}
+
+.graphWidget {
+    width: 70%;
+    background-color: #bbb;
+    padding: 30px 10px;
+    margin: auto;
+}
+
+table.options th,
+table.options td {
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+}
+
+table.options pre.prettyprint {
+    white-space: pre-wrap;
+}
+
+.optiontype {
+    color:#888;
+}
+
+.block {
+    padding-bottom: 30px;
+}
+
+.footer {
+    color:#888;
+    border-top: 1px solid #ddd;
+}
+
+
+/* API specific */
+.example-map {
+    width: 600px;
+    height: 300px;
+    margin: 20px auto;
+}
+
+.center {
+    text-align: center;
+}
+
+/* Itinerary specific */
+#itinerary-step {
+    display: none;
+}
+
+.iti-field {
+    width: 170px;
+}
+
+#example-roadbook-overview ul {
+    list-style-type: none;
+    padding-left: 14px;
+}
+
+
+.syntaxhighlighter {
+    display: block;
+    margin-bottom: 20px;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    white-space: pre;
+}
+
+.syntaxhighlighter .toolbar {
+    display: none !important;
+}
+
+#example-map-4-summary, #example-map-4-roadbook {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+table {
+    border-spacing: 0;
+    margin: 20px 10px;
+}
+
+thead {
+    background: #666;
+}
+
+tr.table-section {
+    background: #36A7D3;
+}
+
+thead th, tr.table-section td {
+    color: #FFF;
+    font-weight: normal;
+}
+
+td ul {
+    margin: 0;
+}

@@ -1,0 +1,289 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Mappy | Migration vers la nouvelle API Ajax</title>
+
+    <link rel="icon" href="http://fr.mappy.com/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" />
+
+    <!-- Syntax Highlighter -->
+    <link href="http://alexgorbatchev.com/pub/sh/current/styles/shThemeDefault.css" rel="stylesheet" type="text/css" />
+    <script src="http://alexgorbatchev.com/pub/sh/current/scripts/shCore.js" type="text/javascript"></script>
+    <script src="http://alexgorbatchev.com/pub/sh/current/scripts/shAutoloader.js" type="text/javascript"></script>
+    <script type="text/javascript" src="http://agorbatchev.typepad.com/pub/sh/3_0_83/scripts/shBrushJScript.js"></script>
+    <script type="text/javascript" src="http://agorbatchev.typepad.com/pub/sh/3_0_83/scripts/shBrushXml.js"></script>
+    <script type="text/javascript">
+        SyntaxHighlighter.all();
+    </script>
+
+    <!-- API Ajax -->
+    <script type="text/javascript" src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js"></script>
+    <script type="text/javascript" src="../dist/L.Mappy.js"></script>
+</head>
+<body>
+    <div class="mainWrapper" id="top">
+        <h1>Mappy - Migration vers<br/> la nouvelle API Ajax</h1>
+        <p>Mappy API Ajax vous fournit tous les outils pour intégrer des services cartographiques innovants sur vos sites Web et mobiles. Mettez facilement vos adresses en valeur sur une carte Mappy et enrichissez l’expérience utilisateur grâce aux nombreux contenus disponibles.</p>
+        <ul>
+            <li><a href="#coordinates">Les coordonnées</a></li>
+            <li><a href="#init">Initialiser la carte</a></li>
+            <li><a href="#marker">Ajouter un marker</a></li>
+            <li><a href="#shape">Ajouter un tracé</a></li>
+            <li><a href="#geocode">Appeler le service de géocodage</a></li>
+            <li><a href="#route">Appeler le service d'itinéraire</a></li>
+        </ul>
+
+        <p>
+            Pour plus d'information sur les possibilités de l'API, vous pouvez vous rendre sur la documentation en ligne de Leaflet :<a href="http://leafletjs.com/reference.html">http://leafletjs.com/reference.html</a>
+        </p>
+
+        <div class="block" id="documentation">
+            <h2>Documentation technique</h2>
+
+
+            <h3 id="coordinates">Les coordonnées</h3>
+
+            <p>Avant, il fallait faire:</p>
+
+            <pre class="brush: js">
+                var coords = new Mappy.api.geo.Coordinates(2, 48);
+            </pre>
+
+            <p>Dans la nouvelle API, vous pouvez déclarer des coordonnées de plusieurs manières. L'ordre des arguments est différent et c'est l'ordre utilisé par l'API Leaflet qui sert de base à cette nouvelle API Mappy.</p>
+
+            <pre class="brush: js">
+                var coords = new L.LatLng(48, 2);
+
+                // est équivalent à
+                var coords = L.latLng(48, 2);
+
+                // mais peu aussi être utilisé comme ça
+                var coords = [48, 2];
+            </pre>
+
+            <p>Plus de détails sur <a href="http://leafletjs.com/reference.html#latlng">les coordonnnées</a>.</p>
+
+
+            <h3 id="init">Initialiser la carte</h3>
+
+            <p>Avant, il fallait faire:</p>
+
+            <pre class="brush: js">
+                // Initialisation de l'API Ajax
+                Mappy.api.init("Votre identifiant client", "Votre token");
+
+                // Création de la carte
+                var map = new Mappy.api.map.Map({
+                    container: "#id-de-la-div",
+                    center: [
+                        new Mappy.api.geo.Coordinates(1.44295,43.6044),
+                        7
+                    ]
+                });
+            </pre>
+
+            <p>Maintenant, il faut faire:</p>
+
+            <pre class="brush: js">
+                // Création de la carte sans token mais avec un clientId, à demander à Mappy
+                var map = new L.Mappy.Map("id-de-la-div", {
+                    clientId: 'votreClientId',
+                    center: [43.6044, 1.44295],
+                    zoom: 7
+                });
+            </pre>
+
+            <p>Plus de détails sur <a href="http://leafletjs.com/reference.html#map-options">les options de la carte</a> et <a href="index.html#example1">les outils de la carte</a>.</p>
+
+
+            <h3 id="marker">Ajouter un marker</h3>
+
+            <p>Avant, il fallait faire:</p>
+
+            <pre class="brush: js">
+                // Ajout d'un layer pour gérer les markers
+                var markerLayer = new Mappy.api.map.layer.MarkerLayer(40);
+                map.addLayer(markerLayer);
+
+                var coordinates = new Mappy.api.geo.Coordinates(2, 48);
+                var icon = new Mappy.api.ui.Icon(Mappy.api.ui.Icon.DEFAULT);
+                var marker = new Mappy.api.map.Marker(coordinates, icon);
+
+                marker.addListener("click", function() {
+                    marker.openPopUp("Texte");
+                });
+
+                markerLayer.addMarker(marker);
+            </pre>
+
+            <p>Maintenant, il faut faire:</p>
+
+            <pre class="brush: js">
+                // Ce n'est pas obligatoire de créer un layer
+                var marker = L.marker([48, 2]).addTo(map).bindPopup("Texte");
+
+                // Exemple avec un layer
+                var layer = L.layerGroup().addTo(map);
+                var marker = L.marker([48, 2]).addTo(layer).bindPopup("Texte");
+            </pre>
+
+            <p>Plus de détails sur <a href="http://leafletjs.com/reference.html#marker">les markers</a> et <a href="http://leafletjs.com/reference.html#icon">les icones des markers</a>.</p>
+
+
+            <h3 id="shape">Ajouter un tracé</h3>
+
+            <p>Avant, il fallait faire:</p>
+
+            <pre class="brush: js">
+                // Ajout d'un layer pour gérer les shapes
+                var shapeLayer = new Mappy.api.map.layer.ShapeLayer(40);
+                map.addLayer(shapeLayer);
+
+                // Création d'une shape
+                var shape = new Mappy.api.map.shape.Line([new Mappy.api.geo.Coordinates(2, 48), new Mappy.api.geo.Coordinates(2.1, 48.1), ...]);
+                shapeLayer.addShape(shape);
+            </pre>
+
+            <p>Maintenant, il faut faire:</p>
+
+            <pre class="brush: js">
+                // Ce n'est pas obligatoire de créer un layer
+                var shape = L.polyline([[48, 2], [48.1, 2.1], ...]).addTo(map);
+
+                // Exemple avec un layer
+                var layer = L.layerGroup().addTo(map);
+                var shape = L.polyline([[48, 2], [48.1, 2.1], ...]).addTo(layer);
+            </pre>
+
+            <p>Plus de détails sur <a href="http://leafletjs.com/reference.html#polyline">les polylines</a> et <a href="http://leafletjs.com/reference.html#multipolyline">les autres objets dérivés</a>.</p>
+
+
+            <h3 id="geocode">Appeler le service de géocodage</h3>
+
+            <p>Avant, il fallait faire:</p>
+
+            <pre class="brush: js">
+                // Instantiation du Geocodeur
+                var geocoder = new Mappy.api.geolocation.Geocoder();
+
+                // Callback de succès
+                var onGeocodingSuccess = function(results) {
+                    var coordinates = new Mappy.api.geo.Coordinates(results[0].Placemark.Point.coordinates[0], results[0].Placemark.Point.coordinates[1]);
+                    map.setCenter(coordinates, 7);
+                };
+
+                // Callback d'erreur
+                var onGeocodingError = function(error) {
+                    // Error during geocoding
+                };
+
+                // On cherche les résultats pour "47 rue de charonne Paris"
+                geocoder.geocode("47 rue de charonne, paris", onGeocodingSuccess, onGeocodingError);
+            </pre>
+
+            <p>Maintenant, il faut faire:</p>
+
+            <pre class="brush: js">
+                // Callback de succès
+                var onGeocodingSuccess = function(results) {
+                    var coordinates = results[0].Point.coordinates.reverse();
+                    map.setCenter(coordinates, 7);
+                };
+
+                // Callback d'erreur
+                var onGeocodingError = function(error) {
+                    // Error during geocoding
+                };
+
+                // On cherche les résultats pour "47 rue de charonne Paris"
+                L.Mappy.Services.geocode("47 rue de charonne, paris", onGeocodingSuccess, onGeocodingError);
+            </pre>
+
+
+            <h3 id="route">Appeler le service d'itinéraire</h3>
+
+            <p>Avant, il fallait faire:</p>
+
+            <pre class="brush: js">
+                // Instantiation du Service d'itinéraire
+                var routeService = new Mappy.api.route.RouteService();
+                var roadbookLayer = new Mappy.api.map.layer.RoadbookLayer(41, undefined, true);
+                map.addLayer(roadbookLayer);
+
+                // Callback de succès
+                var onItinerarySuccess = function(results) {
+                    roadbookLayer.setRoadbook(roadbook);
+                    map.setCenter(roadbookLayer.getBounds().center, map.getBoundsZoomLevel(roadbookLayer.getBounds()));
+                };
+
+                // Callback d'erreur
+                var onItineraryError = function(error) {
+                    // Error during route calculation
+                };
+
+                var options = {
+                    transport_mode: "pub_tp", // "bike"
+                    realtime: 0, // 1
+                    infotraffic: 0, // 1
+                    mode: "std", // mul
+                    forceItiAlt: 0 // 1
+                };
+
+                // On cherche les résultats pour un trajet Paris - Caen
+                routeService.loadRoute(["Paris", "Caen"], options, onItinerarySuccess, onItineraryError);
+            </pre>
+
+            <p>Maintenant, il faut faire:</p>
+
+            <pre class="brush: js">
+                // Callback de succès
+                // Sans layer
+                var onGeocodingSuccess = function(results) {
+                    var polyline = L.polyline(results.routes.route["polyline-definition"].polyline).addTo(map);
+                    map.fitBounds(polyline.getBounds());
+                };
+
+                // Avec layer
+                var layer = L.featureGroup().addTo(map);
+                var onGeocodingSuccess = function(results) {
+                    L.polyline(results.routes.route["polyline-definition"].polyline).addTo(layer);
+                    map.fitBounds(layer.getBounds());
+                };
+
+                // Callback d'erreur
+                var onGeocodingError = function(error) {
+                    // Error during geocoding
+                };
+
+                var options = {
+                    vehicle: L.Mappy.RouteModes.CAR, // PEDESTRIAN, BIKE, MOTORBIKE
+                    cost: "length", // or "time" or "price" 
+                    gascost: 1.0,
+                    gas: "petrol", // or diesel, lpg
+                    nopass: 0, // 1 pour un trajet sans col
+                    notoll: 0, // 1 pour un trajet sans péage
+                    caravane: 0, // 1 pour un trajet avec caravane
+                    infotraffic: 0 // 1 pour un trajet avec trafic
+                };
+
+                // On cherche les résultats pour un trajet Paris - Caen (géocodage effectué avant)
+                // Sans options
+                L.Mappy.Services.route([[48.85689, 2.35086], [49.18459, -0.36052]], onGeocodingSuccess, onGeocodingError);
+
+                // Avec options
+                L.Mappy.Services.route([[48.85689, 2.35086], [49.18459, -0.36052]], options, onGeocodingSuccess, onGeocodingError);
+            </pre>
+
+        </div>
+
+        <div class="footer">
+            <p>
+                <a href="#top">Haut de page</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>

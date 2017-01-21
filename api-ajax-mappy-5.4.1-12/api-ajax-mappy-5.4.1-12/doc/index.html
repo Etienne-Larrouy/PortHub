@@ -1,0 +1,979 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Mappy | Documentation API Ajax</title>
+
+    <link rel="icon" href="http://fr.mappy.com/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <link rel="stylesheet" type="text/css" href="../node_modules/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" type="text/css" href="../dist/L.Mappy.css" />
+
+    <!-- Syntax Highlighter -->
+    <link href="./bower_components/SyntaxHighlighter/styles/shThemeDefault.css" rel="stylesheet" type="text/css" />
+    <link href="./bower_components/SyntaxHighlighter/styles/shCore.css" rel="stylesheet" type="text/css" />
+    <script src="./bower_components/SyntaxHighlighter/scripts/XRegExp.js"></script>
+    <script src="./bower_components/SyntaxHighlighter/scripts/shCore.js"></script>
+    <script src="./bower_components/SyntaxHighlighter/scripts/shAutoloader.js"></script>
+    <script src="./bower_components/SyntaxHighlighter/scripts/shBrushJScript.js"></script>
+    <script src="./bower_components/SyntaxHighlighter/scripts/shBrushXml.js"></script>
+    <script>
+        SyntaxHighlighter.all();
+    </script>
+    <!-- API Ajax -->
+    <script type="text/javascript" src="../node_modules/leaflet/dist/leaflet-src.js"></script>
+    <script type="text/javascript" src="../dist/L.Mappy-src.js"></script>
+</head>
+<body>
+<div class="mainWrapper" id="top">
+<h1>Mappy - API Ajax</h1>
+<p>Mappy API Ajax vous fournit tous les outils pour intégrer des services cartographiques innovants sur vos sites Web et mobiles. Mettez facilement vos adresses en valeur sur une carte Mappy et enrichissez l’expérience utilisateur grâce aux nombreux contenus disponibles.</p>
+
+<ul>
+    <li><a href="#presentation">Présentation</a></li>
+    <li><a href="#documentation">Documentation technique</a></li>
+    <li>
+        <a href="#examples">Exemples d'intégration</a>
+        <ul>
+            <li><a href="#example1">Modifier ou supprimer les outils de navigation par défaut</a></li>
+            <li><a href="#example2">Afficher les lignes de transport en commun ou le trafic en France</a></li>
+            <li><a href="#example3">Utiliser le service de Géocodage</a></li>
+            <li><a href="#example4">Utiliser le service d'itinéraire</a></li>
+            <li><a href="#example5">Utiliser l'API en https</a></li>
+            <li><a href="#example6">Désactiver les interactions utilisateurs sur la carte</a></li>
+            <li><a href="#example7">Utiliser l'API dans une autre langue</a></li>
+        </ul>
+    </li>
+</ul>
+
+<div class="block" id="presentation">
+    <h2>Présentation</h2>
+    <h3>Des fonctionnalités pratiques</h3>
+    <p><strong>Une carte moderne et pratique</strong><br />
+        Grâce à Mappy API Ajax, vos visiteurs accèdent à :
+    <ul>
+        <li>des cartes modernes et, détaillées et à jour</li>
+        <li>des images aériennes et satellite</li>
+        <li>l’état de la circulation routière en temps réel</li>
+    </ul>
+    </p>
+
+    <p><strong>Les itinéraires de référence</strong><br />
+        Vos utilisateurs peuvent également bénéficier des itinéraires Mappy dans le mode de transport désiré : voiture, vélo, piéton et transports en commun. L’itinéraire voiture propose à l’utilisateur le meilleur chemin à emprunter en fonction des conditions de circulation temps réel et habituellement constatées. L’itinéraire en transport en commun est exclusivement réservé aux sites Mappy et PagesJaunes.</p>
+
+    <p><strong>Une localisation précise de vos adresses</strong><br />
+        Vos utilisateurs localisent facilement les adresses et points d’intérêt (POI) les plus fréquemment demandés. La localisation s’effectue grâce à des données cartographiques régulièrement mises à jour par les équipes techniques Mappy.</p>
+
+    <h3>Avantages</h3>
+    <p><strong>Outils performants sur Web et mobile</strong><br />
+        Votre site Web est la vitrine de votre organisation.<br/>
+        Avec Mappy API Ajax, vous bénéficiez de services rapides sur navigateurs Web et mobiles   d’une haute disponibilité capable de supporter des sites à forte audience tels que PagesJaunes et Mappy.</p>
+
+    <p><strong>Un partenaire solide</strong><br />
+        Dans vos projets, appuyez vous sur :
+    <ul>
+        <li>le leader français de la cartographie Web, filiale à 100% de SoLocal Group.</li>
+        <li>un savoir-faire de 20 ans dans la géolocalisation d’adresses, le calcul d’itinéraires et l’affichage de plans détaillés.</li>
+    </ul>
+    </p>
+</div>
+
+<div class="block" id="documentation">
+    <h2>Documentation technique</h2>
+    <h3>Intégration d'une carte Mappy dans votre site</h3>
+
+    <p>Pour utiliser l'API Ajax, Vous devez d'abord récupérer les ressources Leaflet depuis leur cdn et les placer sur vos serveurs :
+        <a target="_blank" href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css">https://unpkg.com/leaflet@1.0.1/dist/leaflet.css</a><br />
+        <a target="_blank" href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.js">https://unpkg.com/leaflet@1.0.1/dist/leaflet.js</a>
+    </p>
+
+    <p>Ajoutez ensuite les fichiers CSS et javascript aux sources de votre site.</p>
+
+    <pre class="brush :xml">
+        &lt;link rel="stylesheet" type="text/css" href="leaflet.css" /&gt;
+        &lt;link rel="stylesheet" type="text/css" href="L.Mappy.css" /&gt;
+        &lt;script type="text/javascript" src="leaflet.js"&gt;&lt;/script&gt;
+        &lt;script type="text/javascript" src="L.Mappy.js"&gt;&lt;/script&gt;
+    </pre>
+
+    <p>Une carte à besoin d'un conteneur HTML et d'un centre, défini par des coordonnées (longitude et latitude) et un niveau de zoom compris entre 0 et 19 (0 et 18 pour les écrans HD si detectRetina est activé)</p>
+
+    <p>Notez également la présence du champ <strong>clientId</strong> dans l’exemple ci-dessous, champ obligatoire qui vous a été remis avec l’API (sinon, contactez <a href="mailto:deportalisation@mappy.com?subject=api-leaflet : demande de clientId">deportalisation@mappy.com</a>).</p>
+
+    <pre class="brush :xml">
+        &lt;div id="example-map-1" style="width:100%; height: 300px;"&gt;&lt;/div&gt;
+    </pre>
+
+    <pre class="brush: js">
+        // Définit le chemin vers le dossier contenant les images et logos de l'api
+        L.Mappy.setImgPath("../dossier/des/logos/");
+    </pre>
+
+    <pre class="brush: js">
+        // Création de la carte
+        var exampleMap1 = new L.Mappy.Map("example-map-1", {
+            clientId: 'votreClientId',
+            center: [43.6044, 1.44295],
+            zoom: 7
+        });
+    </pre>
+
+    <p>Voici le résultat :</p>
+
+    <div id="example-map-0" class="example-map"></div>
+    <script type="text/javascript">
+        (function() {
+            L.Mappy.setImgPath("../dist/images/");
+            var exampleMap1 = new L.Mappy.Map("example-map-0", {
+                clientId: 'documentation',
+                center: [43.6044, 1.44295],
+                zoom: 7
+            });
+        })();
+    </script>
+
+    <h3>Changelog</h3>
+    <p>L'historique des modifications apportées à l'API Ajax est disponible sur <a href="changelog.html">cette page</a>.</p>
+    <h3>Compatibilité navigateurs</h3>
+    <ul>
+        <li>Internet Explorer : 8.x et supérieur.</li>
+        <li>Firefox : 10.x et supérieur.</li>
+        <li>Chrome : 17.x et supérieur.</li>
+        <li>Safari : 5.x et supérieur.</li>
+    </ul>
+
+    <h3>Migration</h3>
+    <p>Si vous voulez migrer de l'ancienne API vers la nouvelle, rendez vous sur <a href="migration.html">cette page</a>.</p>
+
+</div>
+
+<div class="block" id="examples">
+    <h2>Exemples d'intégration</h2>
+
+    <h3 id="example1">Modifier ou supprimer les outils de navigation par défaut</h3>
+    <p>
+        L'API Ajax inclut nativement plusieurs outils pour faciliter la navigation sur la carte : zoom et modes de vue, mais vous pouvez les supprimer facilement. <br/>
+        Par ailleurs, le chemin du logo peut être précisé ainsi que sa position (par défaut le logo est placé en haut à gauche).
+    </p>
+
+    <pre class="brush: js">
+        var exampleMap = new L.Mappy.Map("example-map", {
+            // ...
+            zoomControl: false,
+            layersControl: false,
+            logoControl: {
+                position: "topright"
+            }
+        });
+    </pre>
+
+    <div id="example-map-1a" class="example-map"></div>
+    <script type="text/javascript">
+        (function() {
+            L.Mappy.setImgPath("../dist/images/");
+            var exampleMap1a = new L.Mappy.Map("example-map-1a", {
+                clientId: 'documentation',
+                center: [43.6044, 1.44295],
+                zoom: 7,
+                zoomControl: false,
+                layersControl: false,
+                logoControl: {
+                    position: 'topright'
+                }
+            });
+        })();
+    </script>
+    <p>
+        Les options de la carte sont paramétrables à l'initialisation de l'API.<br/>
+        On peut définir des limites de zoom et activer la detection automatique des écrans HD pour afficher les dalles HD.<br/>
+        Par défaut, le minZoom est 0, le maxZoom 19 et detectRetina est désactivé.<br />
+        Attention, en activant detectRetina, le maxZoom passe à 18 sur les écrans HD.
+    </p>
+
+    <pre class="brush: js">
+        var exampleMap = new L.Mappy.Map("example-map", {
+            // ...
+            tileLayerOptions: {
+                minZoom: 3,
+                maxZoom: 6,
+                detectRetina: true
+            }
+        });
+    </pre>
+
+    <p>
+        Le zoom dispose d'un slider avec le paramètre : 'zoomSlider'.<br/>
+        Par défaut, le zoom slider est désactiver et les boutons + et - sont placés en haut à droite.
+    </p>
+
+    <pre class="brush: js">
+        var exampleMap = new L.Mappy.Map("example-map", {
+            // ...
+            zoomControl: {
+                zoomSlider: true
+            }
+        });
+    </pre>
+
+    <p>
+        Les modes de vues sont paramétrables pour n'afficher que les options souhaitées.<br/>
+        Options disponibles : trafic, transports en commun, modes de vues et légende trafic (uniquement actif avec le layer trafic).<br/>
+        Par défaut, toutes les options sont activées et placées en haut à droite (sauf la légende trafic qui s'affiche en bas à droite).
+    </p>
+
+    <pre class="brush: js">
+        var exampleMap = new L.Mappy.Map("example-map", {
+            // ...
+            viewmode: 'hybrid',
+            layersControl: {
+                publicTransport: false,
+                traffic: false,
+                viewMode: true,
+                trafficLegend: true
+            }
+        });
+    </pre>
+
+    <p>
+        Les attributions sont également paramètrables.<br/>
+        Par défaut, l'échelle (option 'scale') est activée et les attributions sont placés en bas à gauche.
+    </p>
+
+    <pre class="brush: js">
+        var exampleMap = new L.Mappy.Map("example-map", {
+            // ...
+            attributionControl: {
+                scale: false
+            }
+        });
+    </pre>
+
+    <p>
+        Il est possible d'ajouter un bouton de géolocalisation. Par défaut, cette option est désactivée.<br />
+        Le paramètre geolocationMarker permet de placer automatiquement un marqueur aux coordonnées géolocalisées.<br/>
+        Le paramètre locateOptions est envoyé en paramètre à la fonction <a href="http://leafletjs.com/reference-1.0.0.html#map-locate" target="_blank">locate</a> de leaflet.<br/>
+        <em>Par défaut, geolocationMarker est désactivé et les options de locate sont données ci-dessous</em>.
+    </p>
+
+    <pre class="brush: js">
+        var exampleMap = new L.Mappy.Map("example-map", {
+            // ...
+            geolocationControl: {
+                geolocationMarker: true,
+                locateOptions: {
+                    setView: true,
+                    maxZoom: 9,
+                    timeout: 5 * 1000,
+                    maximumAge: 30 * 1000
+                },
+                position: 'bottomleft'
+            }
+        });
+    </pre>
+
+    <div id="example-map-1b" class="example-map"></div>
+    <script type="text/javascript">
+        (function() {
+            L.Mappy.setImgPath("../dist/images/");
+            var exampleMap1b = new L.Mappy.Map("example-map-1b", {
+                clientId: 'documentation',
+                center: [48.85327350015348, 2.377486988207541],
+                zoom: 8,
+                viewmode: 'photo',
+                zoomControl: {
+                    zoomSlider: true
+                },
+                layersControl: {
+                    publicTransport: false,
+                    traffic: false,
+                    viewMode: true,
+                    trafficLegend: true
+                },
+                attributionControl: {
+                    scale: false
+                },
+                geolocationControl: {
+                    geolocationMarker: true,
+                    position: 'bottomleft'
+                },
+                tileLayerOptions: {
+                    minZoom: 6,
+                    maxZoom: 10,
+                    detectRetina: true
+                }
+            });
+            exampleMap1b.setOverlay('traffic');
+        })();
+    </script>
+
+    <p>
+        L'affichage de l'info-bulle (tooltip) est également paramétrable.<br/>
+        Par defaut l'option "tooltip" est activée : L'info-bulle s'affiche au survol.<br/>
+        L'option donnée ci-dessous permet de désactiver ce fonctionnement.
+    </p>
+
+    <pre class="brush: js">
+        var exampleMap = new L.Mappy.Map("example-map", {
+            // ...
+            tooltip: false
+        });
+    </pre>
+
+    <h3 id="example2">Afficher les lignes de transport en commun ou le trafic en France</h3>
+    <p>Mappy permet d'afficher sur la carte les lignes de transport en commun et la congestion du trafic en France. Attention, cette fonctionnalité dépend d'un accord écrit avec Mappy.</p>
+
+    <pre class="brush: js">
+        // Ajout des lignes de transport en commun sur la carte
+        exampleMap2.setOverlay("public_transport");
+
+        // Ajout des données trafic sur la carte
+        exampleMap2.setOverlay("traffic");
+
+        // Supprimer tout
+        exampleMap2.setOverlay();
+    </pre>
+
+
+    <div class="center">
+        <button id="public_transport">Afficher les lignes de transport en commun</button>
+        <button id="traffic">Afficher les données trafic en France</button>
+    </div>
+    <div id="example-map-2" class="example-map"></div>
+    <script type="text/javascript">
+        (function() {
+            L.Mappy.setImgPath("../dist/images/");
+            var exampleMap2 = new L.Mappy.Map("example-map-2", {
+                clientId: 'documentation',
+                center: [48.85, 2.4],
+                zoom: 7,
+                zoomControl: false,
+                layersControl: false
+            });
+
+            var currentLayer = null;
+
+            var removeLayers = function() {
+                exampleMap2.setOverlay();
+                currentLayer = null;
+
+                document.getElementById('public_transport').innerHTML = document.getElementById('public_transport').innerHTML.replace('Masquer', 'Afficher');
+                document.getElementById('traffic').innerHTML = document.getElementById('traffic').innerHTML.replace('Masquer', 'Afficher');
+            };
+
+            var setCurrentLayer = function(layerName) {
+                removeLayers();
+                currentLayer = layerName;
+                exampleMap2.setOverlay(layerName);
+                document.getElementById(layerName).innerHTML = document.getElementById(layerName).innerHTML.replace('Afficher', 'Masquer');
+            };
+
+            var onButtonClick = function(e) {
+                var targ;
+                if (!e) var e = window.event;
+                if (e.target) targ = e.target;
+                else if (e.srcElement) targ = e.srcElement;
+                (currentLayer === targ.id) ? removeLayers() : setCurrentLayer(targ.id);
+            };
+
+            document.getElementById('public_transport').onclick = onButtonClick;
+            document.getElementById('traffic').onclick = onButtonClick;
+        })();
+    </script>
+
+
+    <h3 id="example3">Utiliser le service de Géocodage</h3>
+
+    <p>Pour utiliser ce service, il est nécessaire de définir le paramètre <strong>clientId</strong> qui vous a été remis avec l’API (sinon, contactez <a href="mailto:deportalisation@mappy.com?subject=api-leaflet : demande de clientId">deportalisation@mappy.com</a>).</p>
+
+    <p>L'API Ajax inclut un service de Géocodage fourni par Mappy. Il permet de récupérer les coordonnées géographiques d'une adresse (pour l'afficher sur une carte par exemple), ou de récupérer une adresse à partir de coordonnées géographiques (géocodage inverse).</p>
+
+    <pre class="brush: js">
+        // Instantiation du clientId pour utiliser le geocoder
+        L.Mappy.setCliendId("votreClientId");
+
+        // On cherche les résultats pour "47 rue de charonne Paris"
+        L.Mappy.Services.geocode("47 rue de charonne, paris",
+            // Callback de succès
+            function(results) {
+                var coords = results|0].Point.coordinates.split(",").reverse();
+                exampleMap3.setView(coords, 7);
+                mLayer.addLayer(L.marker(coords));
+            },
+            // Callback d'erreur
+            function(errorType) {
+                // Error during geocoding
+            }
+        );
+    </pre>
+
+    <div class="center">
+        <form id="geocoder-form">
+            <input type="text" name="address" id="geocoder-address"/>
+            <input type="submit" id="geocoder-submit" value="Rechercher">
+        </form>
+    </div>
+    <div id="example-map-3" class="example-map"></div>
+    <script type="text/javascript">
+        (function() {
+            L.Mappy.setImgPath("../dist/images/");
+            var exampleMap3 = new L.Mappy.Map("example-map-3", {
+                clientId: 'documentation'
+            });
+            var mLayer = L.layerGroup().addTo(exampleMap3);
+
+            L.Mappy.Services.geocode("47 rue de charonne, paris", function(results) {
+                var coords = results[0].Point.coordinates.split(",").reverse();
+                exampleMap3.setView(coords, 7);
+                var marker = L.marker(coords).addTo(mLayer);
+                marker.bindPopup("<p>Popup</p>");
+            }, function() {
+                // Error during geocoding
+            });
+
+            // Geocoding field
+            document.getElementById('geocoder-form').onsubmit = function(event) {
+                if (!event) var event = window.event;
+                if(event.preventDefault) event.preventDefault();
+                event.returnValue = false;
+                L.Mappy.Services.geocode(document.getElementById('geocoder-address').value, function(results) {
+                    mLayer.clearLayers();
+                    var coords = results[0].Point.coordinates.split(',').reverse();
+                    exampleMap3.setView(coords, 7);
+                    var marker = L.marker(coords).addTo(mLayer);
+                    marker.bindPopup("<p>Popup</p>");
+                }, function() {
+                    // Error during geocoding
+                });
+            };
+        })();
+    </script>
+
+    <p>On peut également ajouter des marqueurs sur la carte.</p>
+
+    <pre class="brush: js">
+        // Création d'un layer contenant les marqueurs à afficher
+        var mLayer = L.layerGroup().addTo(exampleMap3);
+
+        // Création d'un marqueur qu'on ajoute au layer
+        var marker = L.marker(coords).addTo(mLayer);
+    </pre>
+
+    <p>Il est également possible d'ajouter des popins aux marqueurs s'affichant au clic.</p>
+
+    <pre class="brush: js">
+        marker.bindPopUp("Votre texte");
+    </pre>
+
+    <br />
+    <p>Si la requête de loc échoue, un message d'erreur correspondant est passé en paramètre de la callback d'erreur :</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Description</th>
+                <th>Code erreur</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Pas de résultat</td>
+                <td>no_result</td>
+            </tr>
+            <tr>
+                <td>Erreur serveur, code 503</td>
+                <td>server_error</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br />
+    <h3 id="example4">Utiliser le service d'itinéraire</h3>
+
+    <p>Pour utiliser ce service, il est nécessaire de définir le paramètre <strong>clientId</strong> qui vous a été remis avec l’API (sinon, contactez <a href="mailto:deportalisation@mappy.com?subject=api-leaflet : demande de clientId">deportalisation@mappy.com</a>).</p>
+
+    <p>L'API Ajax inclut un service d'itinéraire fourni par Mappy. Il permet de récupérer les coordonnées d'un itinéraire ainsi que les détails de la feuille de route. Un certain nombre de modes de transports sont disponibles et présentés dans le tableau ci-dessous. </p>
+    <p>Ces modes de transports peuvent influer sur plusieurs aspects du résultat : le trajet (uniquement pieton/auto/velo), la durée (vitesse maximale), le coût (consommation de carburant et péages). L'ensemble des paramètres est disponible dans un tableau accessible via l'objet <em>L.Mappy.Vehicles</em> et les traductions correspondantes via la méthode <em>L.Mappy.getText('vehicle.[mode]')</em>.</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Description</th>
+                <th>Identifiant à passer à l'appel du service</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Petite voiture</td>
+                <td>comcar</td>
+            </tr>
+            <tr>
+                <td>Voiture de taille moyenne</td>
+                <td>midcar</td>
+            </tr>
+            <tr>
+                <td>Routière</td>
+                <td>sedcar</td>
+            </tr>
+            <tr>
+                <td>Grande routière</td>
+                <td>luxcar</td>
+            </tr>
+            <tr>
+                <td>Véhicule avec caravane</td>
+                <td>caravancar</td>
+            </tr>
+            <tr>
+                <td>Poids lourd, PTAC < 3.5T (2 essieux)</td>
+                <td>2-lt3.5</td>
+            </tr>
+            <tr>
+                <td>Poids lourd, PTAC < 12T (2 essieux)</td>
+                <td>2-lt12</td>
+            </tr>
+            <tr>
+                <td>Poids lourd, PTAC > 12T (2 essieux)</td>
+                <td>2-gt12</td>
+            </tr>
+            <tr>
+                <td>Poids lourd, PTAC > 12T, articulé (2 essieux)</td>
+                <td>2-gt12a</td>
+            </tr>
+            <tr>
+                <td>Poids lourd, PTAC < 3.5T (3 essieux ou plus)</td>
+                <td>3-lt3.5</td>
+            </tr>
+            <tr>
+                <td>Poids lourd, PTAC < 12T (3 essieux ou plus)</td>
+                <td>3-lt12</td>
+            </tr>
+            <tr>
+                <td>Poids lourd, PTAC > 12T (3 essieux ou plus)</td>
+                <td>3-gt12</td>
+            </tr>
+            <tr>
+                <td>Poids lourd, PTAC > 12T, articulé (3 essieux ou plus)</td>
+                <td>3-gt12a</td>
+            </tr>
+            <tr>
+                <td>Moto</td>
+                <td>mot</td>
+            </tr>
+            <tr>
+                <td>Camping car</td>
+                <td>van</td>
+            </tr>
+            <tr>
+                <td>Bus 2 essieux</td>
+                <td>2-coa</td>
+            </tr>
+            <tr>
+                <td>Bus 3 essieux</td>
+                <td>3-coa</td>
+            </tr>
+            <tr>
+                <td>Piéton</td>
+                <td>ped</td>
+            </tr>
+            <tr>
+                <td>Vélo</td>
+                <td>bik</td>
+            </tr>
+            <tr>
+                <td>Vélo en libre-service*</td>
+                <td>bike</td>
+            </tr>
+            <tr>
+                <td>Transports en commun (plus de <a href="http://corporate.mappy.com/faq/transports-en-commun/">3800 villes en France</a>)*</td>
+                <td>pub_tp</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p>(*) Attention, l'utilisation des modes vélo en libre-service et transports en commun est soumise à plusieurs restrictions : les itinéraires rendus
+        ne sont disponibles qu'en français, mais surtout <strong>vous devez disposez de l'autorisation de Mappy pour les utiliser</strong>.<p>
+
+    <pre class="brush: js">
+        // Instantiation du clientId pour utiliser le service de route
+        L.Mappy.setClientId("documentation");
+
+        var options = {
+            vehicle: L.Mappy.Vehicles.comcar,
+            cost: "length", // or "time" or "price"
+            gascost: 1.0,
+            gas: "petrol", // or diesel, lpg
+            nopass: 0, // 1 pour un trajet sans col
+            notoll: 0, // 1 pour un trajet sans péage
+            infotraffic: 0 // 1 pour un trajet avec trafic
+        };
+
+        // On cherche les résultats pour "47 rue de charonne Paris"
+        L.Mappy.Services.route([L.latLng(48, 2), L.latLng(48.1, 2.1)],
+            options,
+            // Callback de succès
+            function(result) {
+                L.Mappy.route(result.routes).addTo(map);
+                var summary = result.routes.route[0].summary;
+                var roadbook = result.routes.route[0].actions.action;
+            },
+            // Callback d'erreur
+            function(errorType) {
+                // Error during route calculation
+            }
+        );
+    </pre>
+
+
+    <div class="center">
+        <form id="router-form">
+            <input type="text" name="start" id="router-start"/>
+            <input type="text" name="end" id="router-end"/>
+            <select name="mode" id="router-mode"></select>
+            <input type="submit" id="router-submit" value="Rechercher">
+        </form>
+        <p>
+            <a href="#48.85689,2.35086|48.82307,2.273394" id="router-example-3">Paris - Issy-les-Moulineaux</a> -
+            <a href="#48.85689,2.35086|43.29492,5.37409" id="router-example-1">Paris - Marseille</a> -
+            <a href="#44.83499,-0.57574|45.7671,4.83436" id="router-example-2">Bordeaux - Lyon</a>
+        </p>
+    </div>
+    <div id="example-map-4" class="example-map"></div>
+    <h4>results.routes.route.summary</h4>
+    <pre id="example-map-4-summary" class="like-highlighted"></pre>
+    <h4>results.routes.route.actions.action</h4>
+    <pre id="example-map-4-roadbook" class="like-highlighted"></pre>
+
+    <script type="text/javascript">
+        (function() {
+            for (var i = 0; i < L.Mappy.Vehicles.length; i++) {
+                var option = document.createElement('option');
+                option.value        = L.Mappy.Vehicles[i];
+                option.innerHTML    = L.Mappy.getText('vehicle.' + option.value);
+                document.getElementById('router-mode').appendChild(option);
+            }
+        })();
+
+        (function() {
+            var dump = function(arr,level) {
+                var dumped_text = "";
+                if(!level) level = 0;
+
+                //The padding given at the beginning of the line.
+                var level_padding = "";
+                for(var j=0;j < level+1;j++) level_padding += "&nbsp;&nbsp;&nbsp;&nbsp;";
+
+                if(typeof(arr) == 'object') { //Array/Hashes/Objects
+                    for(var item in arr) {
+                        var value = arr[item];
+
+                        if(typeof(value) == 'object') { //If it is an array,
+                            dumped_text += level_padding + "'" + item + "' ...<br/>";
+                            dumped_text += dump(value,level+1);
+                        } else {
+                            dumped_text += level_padding + "'" + item + "' => \"" + value + "\"<br/>";
+                        }
+                    }
+                } else { //Stings/Chars/Numbers etc.
+                    dumped_text = "===>"+arr+"<===("+typeof(arr)+")";
+                }
+                return dumped_text;
+            };
+
+            L.Mappy.setImgPath("../dist/images/");
+            var exampleMap4 = new L.Mappy.Map("example-map-4", {
+                clientId: 'documentation'
+            });
+            var start_input = document.getElementById('router-start'),
+                end_input = document.getElementById('router-end'),
+                summary = document.getElementById('example-map-4-summary'),
+                roadbook = document.getElementById('example-map-4-roadbook'),
+                routeLayer;
+
+            var calculate_route = function(start, end, mode) {
+                L.Mappy.Services.route([start, end], {
+                    vehicle: mode || 'midcar'
+                }, function(results) {
+                    removeRouteLayer();
+                    routeLayer = L.Mappy.route(results.routes).addTo(exampleMap4);
+                    exampleMap4.fitBounds(routeLayer.getBounds());
+                    summary.innerHTML = dump(results.routes.route[0].summary);
+                    roadbook.innerHTML = dump(results.routes.route[0].actions.action);
+                }, function() {
+                    // Error during route calculation
+                    removeRouteLayer();
+                    summary.innerHTML = "Error";
+                    roadbook.innerHTML = "Error";
+                });
+            };
+
+            var removeRouteLayer = function() {
+                if (routeLayer) {
+                    exampleMap4.removeLayer(routeLayer);
+                    routeLayer = null;
+                }
+            };
+
+            var router_button_click = function(e) {
+                var targ;
+                if (!e) var e = window.event;
+                if (e.target) targ = e.target;
+                else if (e.srcElement) targ = e.srcElement;
+                if(e.preventDefault) e.preventDefault();
+                e.returnValue = false;
+                var values = targ.hash.substring(1).split('|');
+                start_input.value = values[0];
+                end_input.value = values[1];
+            };
+
+            // Geocoding field
+            document.getElementById('router-form').onsubmit = function(event) {
+                if (!event) var event = window.event;
+                if(event.preventDefault) event.preventDefault();
+                event.returnValue = false;
+                calculate_route(this.start.value.split(','), this.end.value.split(','), this.mode.value);
+            };
+
+            document.getElementById('router-example-1').onclick = router_button_click;
+            document.getElementById('router-example-2').onclick = router_button_click;
+            document.getElementById('router-example-3').onclick = router_button_click;
+
+            calculate_route(L.latLng(48.85689,2.35086), L.latLng(48.82307,2.273394));
+        })();
+    </script>
+
+    <p>Plusieurs options sont disponibles selon les modes de transports utilisés.</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Description</th>
+                <th>Option</th>
+                <th>Valeurs possibles</th>
+                <th>Valeurs par défaut</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="table-section">
+                <td colspan="4">Options communes aux transports en commun et au vélo en libre-service</td>
+            </tr>
+            <tr>
+                <td>Nombre d'alternatives proposées (si des alternatives sont disponibles)</td>
+                <td>nbroutes</td>
+                <td>Entier >= 1</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>Date</td>
+                <td>date</td>
+                <td>YYYYMMDD</td>
+                <td>Date courante</td>
+            </tr>
+            <tr>
+                <td>Heure</td>
+                <td>time</td>
+                <td>HHMM</td>
+                <td>Heure courante</td>
+            </tr>
+            <tr>
+                <td>Permet de préciser si les dates sont celles de départ ou d'arrivée</td>
+                <td>sens</td>
+                <td>
+                    <ul>
+                        <li>1 (départ)</li>
+                        <li>-1 (arrivée)</li>
+                    </ul>
+                </td>
+                <td>1</td>
+            </tr>
+            <tr class="table-section">
+                <td colspan="4">Options spécifiques aux transports en commun</td>
+            </tr>
+            <tr>
+                <td>Type de transport en commun autorisés</td>
+                <td>veh</td>
+                <td>boat, bus, metro, rer, train, tram (séparés par des -)</td>
+                <td>boat-bus-metro-rer-train-tram</td>
+            </tr>
+            <tr>
+                <td>Préférence de calcul d'itinéraire</td>
+                <td>criteria</td>
+                <td>
+                    <ul>
+                        <li>1 (le plus rapide)</li>
+                        <li>2 (le moins de correspondances)</li>
+                        <li>3 (le moins de marche)</li>
+                    </ul>
+                </td>
+                <td>1</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p>Il est également possible d'ajouter des popins aux tracés, s'affichant au clic.</p>
+
+    <pre class="brush: js">
+        shape.bindPopUp("Votre texte");
+    </pre>
+
+    <br />
+    <p>Si la requête de route échoue, un message d'erreur correspondant est passé en paramètre de la callback d'erreur :</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Description</th>
+                <th>Code erreur</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="table-section">
+                <td colspan="4">Erreurs communes à tous les modes de transport</td>
+            </tr>
+            <tr>
+                <td>Pas de résultat</td>
+                <td>no_result</td>
+            </tr>
+            <tr>
+                <td>Erreur serveur, code 503</td>
+                <td>server_error</td>
+            </tr>
+            <tr>
+                <td>Départ non renseigné</td>
+                <td>nostart</td>
+            </tr>
+            <tr>
+                <td>arrivée non renseignée</td>
+                <td>noend</td>
+            </tr>
+            <tr class="table-section">
+                <td colspan="4">Erreurs spécifiques aux transports en commun</td>
+            </tr>
+            <tr>
+                <td>Pas de fournisseur pour le départ</td>
+                <td>nostartprovider</td>
+            </tr>
+            <tr>
+                <td>Pas de fournisseur pour l'arrivée</td>
+                <td>noendprovider</td>
+            </tr>
+            <tr>
+                <td>Pas de fournisseur reliant le départ à l'arrivée</td>
+                <td>nostarttoendprovider</td>
+            </tr>
+            <tr>
+            <tr class="table-section">
+                <td colspan="4">Erreurs spécifiques aux vélo libre-service</td>
+            </tr>
+                <td>les stations de départ et d'arrivée n'appartiennent pas au même réseau</td>
+                <td>nonetworkconnexion</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br />
+
+    <h3 id="example5">Utiliser l'API en https</h3>
+    <p>L'API Ajax inclut la possibilité de faire tous ses appels en https. Pour ce faire,
+    il suffit d'appeler avant toute utilisation de l'API: </p>
+
+    <pre class="brush: js">
+        L.Mappy.enableHttps();
+    </pre>
+    <p><strong>Si vous intégrez l’API dans un site en https, l’appel à cette fonction est indispensable.</strong></p>
+
+    <p>N'oubliez pas de charger l'API Leaflet en https également.</p>
+
+
+    <h3 id="example6">Désactiver les interactions utilisateurs sur la carte</h3>
+
+    <p>Leaflet propose nativement de désactiver les différentes options d'interactions utilisateurs. Par exemple, il
+        est possible de ne plus autoriser le zoom à la molette de deux façons : à l'initialisation de la carte, ou manuellement via l'appel d'une méthode.</p>
+
+    <pre class="brush: js">
+        // A l'instanciation
+        var map = new L.Mappy.Map("map", {
+            scrollWheelZoom: false
+        });
+
+        // Manuellement
+        map.scrollWheelZoom.disable();
+    </pre>
+
+    <p>Toutes les options d'interactions sont décrites dans la <a href="http://leafletjs.com/reference-1.0.0.html#map-option">documentation Leaflet</a>.
+        Nous avons également ajouté la possibilité de désactiver toutes les interactions utilisateur (souris, clavier, touch) via l'appel d'une seule méthode.</p>
+
+    <pre class="brush: js">
+        // Désactivation des interactions utilisateurs
+        map.disableInteractions();
+
+        // Réactivation
+        map.enableInteractions();
+    </pre>
+
+    <div id="example-map-6" class="example-map"></div>
+    <div class="center">
+        <button id="example-6-disable">Désactiver les interactions</button>
+        <button id="example-6-enable" disabled='disabled'>Activer les interactions</button>
+    </div>
+
+    <script type="text/javascript">
+        (function() {
+            L.Mappy.setImgPath("../dist/images/");
+            var map = new L.Mappy.Map("example-map-6", {
+                center: [43.6044, 1.44295],
+                zoom: 7
+            });
+
+            document.getElementById('example-6-disable').onclick = function() {
+                document.getElementById('example-6-disable').disabled = 'disabled';
+                document.getElementById('example-6-enable').disabled = '';
+                map.disableInteractions();
+            };
+            document.getElementById('example-6-enable').onclick = function() {
+                document.getElementById('example-6-disable').disabled = '';
+                document.getElementById('example-6-enable').disabled = 'disabled';
+                map.enableInteractions();
+            };
+        })();
+    </script>
+
+
+    <h3 id="example7">Utiliser l'API dans une autre langue</h3>
+
+    <p>Les services Mappy gèrent les langues françaises, anglaises et hollandaises. Pour activer l'API dans une autre langue, il suffit
+        d'appeler la méthode setLocale() avant toute instanciation de carte.</p>
+
+    <p>La locale contient à la fois l'identificateur de langue et l'identificateur de région. Ainsi, les résultats de localisation sont
+        incluencés par la région configurée.</p>
+
+    <pre class="brush: js">
+        // Locales disponibles : fr_FR, en_GB, fr_BE et nl_BE.
+        L.Mappy.setLocale('en_GB');
+
+        // ...
+    </pre>
+
+    <div id="example-map-7" class="example-map"></div>
+    <script type="text/javascript">
+        (function() {
+            L.Mappy.setImgPath("../dist/images/");
+            L.Mappy.setLocale('en_GB');
+            var map = new L.Mappy.Map("example-map-7", {
+                center: [51.45, -0.11295],
+                zoom: 5,
+            });
+        })();
+    </script>
+
+
+
+</div>
+
+<div class="footer">
+    <p>
+        <a href="#top">Haut de page</a>
+    </p>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Mappy | Changelog API Ajax</title>
+
+    <link rel="icon" href="http://fr.mappy.com/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+</head>
+<body>
+    <div class="mainWrapper" id="top">
+        <h1>Changelog</h1>
+        <div class="block" id="documentation">
+            <h2>Version 5.4.1 (16/11/2016)</h2>
+            <ul>
+                <li>Amélioration des callbacks des services de loc et de route (codes erreurs et réponses vides)</li>
+                <li>Gestion d'affichage des tooltips transports en commun</li>
+            </ul>
+        </div>
+        <div class="block" id="documentation">
+            <h2>Version 5.4.0 (16/09/2016)</h2>
+            <ul>
+                <li>Passage à Leaflet 1.0</li>
+            </ul>
+        </div>
+        <div class="block" id="documentation">
+            <h2>Version 5.3.0 (04/02/2016)</h2>
+            <ul>
+                <li>Passage à 20 niveaux de zoom (au lieu de 12)</li>
+                <li>Détection automatique de https</li>
+                <li>Mise à jour du service de route</li>
+                <li>Nouvelle classe <a href="index.html#example4">L.Mappy.Route</a> permettant d'afficher une route formattée sur la carte</li>
+            </ul>
+        </div>
+        <div class="block" id="documentation">
+            <h2>Version 5.2.1 (04/03/2015)</h2>
+            <ul>
+                <li>Amélioration : Ajout d'options par défaut pour l'outil de carte geolocation.</li>
+                <li>Amélioration : Affichage des tooltips transports en commun au touch pour les appareils tactiles</li>
+                <li>Bugfix : Limitation de l'animation de zoom à trois niveaux maximum pour améliorer les performances</li>
+                <li>Bugfix : Correction de l'erreur d'affichage des tooltips transports en commun sur IE8</li>
+                <li>Bugfix : Mauvais affichage des copyrights sur IE8</li>
+            </ul>
+        </div>
+        <div class="block" id="documentation">
+            <h2>Version 5.2.0 (03/12/2014)</h2>
+            <ul>
+                <li>Ajout de tous les véhicules gérés par les services mappy.</li>
+                <li>Ajout des itinéraires transport en commun et vélo en libre-service.</li>
+                <li>La propriété <em>results.routes.route</em> du service d'itinéraire est désormais un tableau (pour gérer les itinéraires alternatifs).</li>
+                <li>Ajout de l'outil geolocation</li>
+                <li>Limite le drag de la carte aux coordonnées max</li>
+            </ul>
+            <span style="color: #c9221d;">Attention: la variable <em>L.Mappy.RouteModes</em> est renommé <em>L.Mappy.Vehicles</em>.</span>
+        </div>
+        <div class="block" id="documentation">
+            <h2>Version 5.1.1 (26/09/2014)</h2>
+            <ul>
+                <li>Le &laquo;token&raquo; a été remplacé par un &laquo;clientId&raquo;.</li>
+            </ul>
+        </div>
+        <div class="block" id="documentation">
+            <h2>Version 5.1.0 (07/07/2014)</h2>
+            <ul>
+                <li>L'API est pleinement compatible avec le web mobile.</li>
+                <li>Ajout du paramètre detectRetina dans l'option tileLayerOptions pour activer les dalles HD sur un écran retina.</li>
+                <li>Nouvelles méthodes pour désactiver/activer les interactions utilisateurs sur la carte.</li>
+                <li>Ajout du style Mappy sur les boutons par défaut.</li>
+                <li>Le layer 'Transports en Commun' est caché pour les zooms 0 à 5 inclus.</li>
+                <li>Bugfix: le successCallback du geocode service est appelé même si le résultat est vide.</li>
+                <li>Gestion des locales fr_FR, en_GB, fr_BE et nl_BE pour la traduction de l'API et des sorties des services de localisation et d'itinéraire.</li>
+                <li>Ajout des icones de transport en commun au survol des stations d'Ile-de-France.</li>
+                <li>Rafraichissement automatique du trafic toutes les deux minutes pour garantir une donnée à jour.</li>
+            </ul>
+        </div>
+        <div class="block" id="documentation">
+            <h2>Version 5.0.3 (27/03/2014)</h2>
+            <ul>
+                <li>Ajout de l'option tileLayerOptions dans l'initialisation de la carte pour spécifier un minZoom
+                et un maxZoom pour l'ensemble des modes de vue (par défaut 0 et 12).</li>
+                <li>Ajout de l'option attributionControl dans l'initialisation de la carte pour spécifier une position
+                pour les copyrights.</li>
+            </ul>
+        </div>
+        <div class="block" id="documentation">
+            <h2>Version 5.0.2 (21/03/2014)</h2>
+            <ul>
+                <li>Ajout des méthodes L.Mappy.enableHttps() et L.Mappy.disableHttps() pour lancer tous les appels en https.</li>
+            </ul>
+        </div>
+        <div class="block" id="documentation">
+            <h2>Version 5.0.1 (01/03/2014)</h2>
+            <ul>
+                <li>Création de l'API Ajax V5.</li>
+                <li>Mise en place d'une <a href="migration.html">aide à la migration</a>.</li>
+                <li>Mise à jour de la <a href="index.html">documentation</a>.</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
