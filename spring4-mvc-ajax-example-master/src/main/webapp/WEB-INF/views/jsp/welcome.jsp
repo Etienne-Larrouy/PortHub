@@ -47,9 +47,26 @@
     // Création de la carte
     var exampleMap1 = new L.Mappy.Map("example-map-1", {
         clientId: 'dri_24hducode',
-        center: [43.6044, 1.44295],
+        center: [51.5,-0.09],
         zoom: 7
     });
+
+    var circle = L.circle([51.508, -0.11], {
+        color: 'red',
+        fillColor: '#f03',
+        fillOpacity: 0.5,
+        radius: 500
+    }).addTo(exampleMap1);
+
+    // Création d'un layer contenant les marqueurs à afficher
+    var mLayer = L.layerGroup().addTo(exampleMap1);
+    // Création d'un marqueur qu'on ajoute au layer
+    var marker = L.marker([51.5, -0.09]).addTo(exampleMap1);
+
+    // Désactivation des interactions utilisateurs
+    exampleMap1.disableInteractions();
+ 
+
 </script>
 
 </body>
