@@ -41,6 +41,14 @@ public class AjaxController {
 	
 	}
 	
+		@JsonView(Views.Public.class)
+	@RequestMapping(value = "/search/api/initMap")
+	public AjaxResponseBody initMap() {
+		Server s = Server.getInstance();
+		
+		return s.getPartie();
+	}
+	
 	// @ResponseBody, not necessary, since class is annotated with @RestController
 	// @RequestBody - Convert the json data into object (SearchCriteria) mapped by field name.
 	// @JsonView(Views.Public.class) - Optional, limited the json data display to client.
