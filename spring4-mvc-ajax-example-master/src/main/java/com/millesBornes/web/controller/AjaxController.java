@@ -61,7 +61,21 @@ public class AjaxController{
 	@JsonView(Views.Public.class)
 	@RequestMapping(value = "/search/api/getInfo")
 	public AjaxResponseInit getInfo() {
+		
+		
+		AjaxResponseInit partie = new AjaxResponseInit();
+
+		partie.setResult(s.partie());
+		
+		
+		return partie;
+	}
+	
+	@JsonView(Views.Public.class)
+	@RequestMapping(value = "/search/api/initMap")
+	public AjaxResponseInit initMap() {
 		Serveur s = Serveur.getInstance();
+		
 		System.out.println("Création partie");
 		s.setPartie(new Part("", 2));
 		Player p1 = new Player("YETI1");
@@ -76,17 +90,6 @@ public class AjaxController{
 		
 		p2.setLat(s.partie().getDepartLatitude());
 		p2.setLng(s.partie().getDepartLongitude());
-		
-		AjaxResponseInit partie = new AjaxResponseInit();
-
-		partie.setResult(s.partie());
-		return partie;
-	}
-	
-	@JsonView(Views.Public.class)
-	@RequestMapping(value = "/search/api/initMap")
-	public AjaxResponseInit initMap() {
-		Serveur s = Serveur.getInstance();
 		
 		
 		AjaxResponseInit partie = new AjaxResponseInit();
