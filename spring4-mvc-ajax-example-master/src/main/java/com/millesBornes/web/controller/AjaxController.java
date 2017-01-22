@@ -23,13 +23,10 @@ public class AjaxController {
 	Move c;
 	@JsonView(Views.Public.class)
 	@RequestMapping(value = "/search/api/getCLickCoords")
-<<<<<<< HEAD
+
 	public AjaxResponseInit getClickCoords(@RequestBody Move clickCoords) {
-		Server s = Server.getInstance();
-=======
-	public AjaxResponseBody getClickCoords(@RequestBody Move clickCoords) {
 		Serveur s = Serveur.getInstance();
->>>>>>> branch 'master' of https://github.com/Etienne-Larrouy/PortHub.git
+
 		
 		System.out.println(clickCoords.getLat());
 		System.out.println(clickCoords.getLng());
@@ -51,7 +48,7 @@ public class AjaxController {
 	@JsonView(Views.Public.class)
 	@RequestMapping(value = "/search/api/getInfo")
 	public AjaxResponseInit getInfo() {
-		Server s = Server.getInstance();
+		Serveur s = Serveur.getInstance();
 		
 		AjaxResponseInit partie = new AjaxResponseInit();
 
