@@ -173,16 +173,14 @@
 					exampleMap1.removeLayer(marker[2]);
 					exampleMap1.removeLayer(marker[3]);
 					marker[1] = L.marker([data.result.list_Player[1].lat,data.result.list_Player[1].lng],{icon: iconJoueurs[1]}).addTo(exampleMap1);
-					marker[2] = L.marker([data.result.list_Player[2].lat,data.result.list_Player[2].lng],{icon: iconJoueurs[2]}).addTo(exampleMap1);
-					marker[3] = L.marker([data.result.list_Player[3].lat,data.result.list_Player[3].lng],{icon: iconJoueurs[3]}).addTo(exampleMap1);
+
 
 				}else if(idPlayer==1){
 					exampleMap1.removeLayer(marker[0]);
 					exampleMap1.removeLayer(marker[2]);
 					exampleMap1.removeLayer(marker[3]);
 					marker[0] = L.marker([data.result.list_Player[0].lat,data.result.list_Player[0].lng],{icon: iconJoueurs[0]}).addTo(exampleMap1);
-					marker[2] = L.marker([data.result.list_Player[2].lat,data.result.list_Player[2].lng],{icon: iconJoueurs[2]}).addTo(exampleMap1);
-					marker[3] = L.marker([data.result.list_Player[3].lat,data.result.list_Player[3].lng],{icon: iconJoueurs[3]}).addTo(exampleMap1);
+
 				}else if(idPlayer==2){
 					exampleMap1.removeLayer(marker[0]);
 					exampleMap1.removeLayer(marker[1]);
@@ -231,6 +229,36 @@
 					move["lat"] = e.latlng.lat;
 					move["lng"] =  e.latlng.lng;
 					move["idPlayer"] =  idPlayer;
+					if(data.result.list_Player[idPlayer].state){
+					if(idPlayer==0){
+				console.log(0);
+						exampleMap1.removeLayer(marker[1]);
+						exampleMap1.removeLayer(marker[2]);
+						exampleMap1.removeLayer(marker[3]);
+						marker[1] = L.marker([data.result.list_Player[1].lat,data.result.list_Player[1].lng],{icon: iconJoueurs[1]}).addTo(exampleMap1);
+
+
+					}else if(idPlayer==1){
+						exampleMap1.removeLayer(marker[0]);
+						exampleMap1.removeLayer(marker[2]);
+						exampleMap1.removeLayer(marker[3]);
+						marker[0] = L.marker([data.result.list_Player[0].lat,data.result.list_Player[0].lng],{icon: iconJoueurs[0]}).addTo(exampleMap1);
+
+					}else if(idPlayer==2){
+						exampleMap1.removeLayer(marker[0]);
+						exampleMap1.removeLayer(marker[1]);
+						exampleMap1.removeLayer(marker[3]);
+						marker[0] = L.marker([data.result.list_Player[0].lat,data.result.list_Player[0].lng],{icon: iconJoueurs[0]}).addTo(exampleMap1);
+						marker[1] = L.marker([data.result.list_Player[1].lat,data.result.list_Player[1].lng],{icon: iconJoueurs[1]}).addTo(exampleMap1);
+						marker[3] = L.marker([data.result.list_Player[3].lat,data.result.list_Player[3].lng],{icon: iconJoueurs[3]}).addTo(exampleMap1);
+					}else{
+						exampleMap1.removeLayer(marker[0]);
+						exampleMap1.removeLayer(marker[1]);
+						exampleMap1.removeLayer(marker[2]);
+						marker[0] = L.marker([data.result.list_Player[0].lat,data.result.list_Player[0].lng],{icon: iconJoueurs[0]}).addTo(exampleMap1);
+						marker[1] = L.marker([data.result.list_Player[1].lat,data.result.list_Player[1].lng],{icon: iconJoueurs[1]}).addTo(exampleMap1);
+						marker[2] = L.marker([data.result.list_Player[2].lat,data.result.list_Player[2].lng],{icon: iconJoueurs[2]}).addTo(exampleMap1);
+					}}
 
 					initIcons(exampleMap1, newIconLayer, move);
 
