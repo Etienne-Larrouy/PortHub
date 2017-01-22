@@ -53,6 +53,8 @@ public class Controller_page_map implements Initializable {
 	private Pane pane;
 	
 	private static boolean created = false;
+	
+	private static int nbbbbb=0;
 
 	private ArrayList<Player> list_player = new ArrayList<>();
 	
@@ -70,13 +72,14 @@ public class Controller_page_map implements Initializable {
 		}
 		if(!created)
 		{
+			
 			created = true;
 			System.out.println("coiuoucocu");
 			Browser browser = new Browser();
 			BrowserView browserView = new BrowserView(browser);
 
-			browser.loadURL("http://localhost:8080/spring4ajax?p=0");
-
+			browser.loadURL("http://localhost:8080/spring4ajax?p="+nbbbbb);
+			
 			map.getChildren().add(browserView);
 			
 			
@@ -100,14 +103,14 @@ public class Controller_page_map implements Initializable {
 			
 			
 	
-				card1.setText(Serveur.getInstance().partie().getList_Player().get(0).getList_card().get(0).getName());
-				card2.setText(Serveur.getInstance().partie().getList_Player().get(0).getList_card().get(1).getName());
-				card3.setText(Serveur.getInstance().partie().getList_Player().get(0).getList_card().get(2).getName());
-				card4.setText(Serveur.getInstance().partie().getList_Player().get(0).getList_card().get(3).getName());
-				card5.setText(Serveur.getInstance().partie().getList_Player().get(0).getList_card().get(4).getName());
-				card6.setText(Serveur.getInstance().partie().getList_Player().get(0).getList_card().get(5).getName());
-				card7.setText(Serveur.getInstance().partie().getList_Player().get(0).getList_card().get(6).getName());
-			
+				card1.setText(Serveur.getInstance().partie().getList_Player().get(nbbbbb).getList_card().get(0).getName());
+				card2.setText(Serveur.getInstance().partie().getList_Player().get(nbbbbb).getList_card().get(1).getName());
+				card3.setText(Serveur.getInstance().partie().getList_Player().get(nbbbbb).getList_card().get(2).getName());
+				card4.setText(Serveur.getInstance().partie().getList_Player().get(nbbbbb).getList_card().get(3).getName());
+				card5.setText(Serveur.getInstance().partie().getList_Player().get(nbbbbb).getList_card().get(4).getName());
+				card6.setText(Serveur.getInstance().partie().getList_Player().get(nbbbbb).getList_card().get(5).getName());
+				card7.setText(Serveur.getInstance().partie().getList_Player().get(nbbbbb).getList_card().get(6).getName());
+				nbbbbb++;
 			
 		}
 		else
@@ -117,18 +120,19 @@ public class Controller_page_map implements Initializable {
 			Browser browser = new Browser();
 			BrowserView browserView = new BrowserView(browser);
 
-			browser.loadURL("http://localhost:8080/spring4ajax?p=1");
+			browser.loadURL("http://localhost:8080/spring4ajax?p="+nbbbbb);
 
 			map.getChildren().add(browserView);
 			
 			
-			card1.setText(Serveur.getInstance().partie().getList_Player().get(1).getList_card().get(0).getName());
-			card2.setText(Serveur.getInstance().partie().getList_Player().get(1).getList_card().get(1).getName());
-			card3.setText(Serveur.getInstance().partie().getList_Player().get(1).getList_card().get(2).getName());
-			card4.setText(Serveur.getInstance().partie().getList_Player().get(1).getList_card().get(3).getName());
-			card5.setText(Serveur.getInstance().partie().getList_Player().get(1).getList_card().get(4).getName());
-			card6.setText(Serveur.getInstance().partie().getList_Player().get(1).getList_card().get(5).getName());
-			card7.setText(Serveur.getInstance().partie().getList_Player().get(1).getList_card().get(6).getName());
+			card1.setText(Serveur.getInstance().partie().getList_Player().get(nbbbbb).getList_card().get(0).getName());
+			card2.setText(Serveur.getInstance().partie().getList_Player().get(nbbbbb).getList_card().get(1).getName());
+			card3.setText(Serveur.getInstance().partie().getList_Player().get(nbbbbb).getList_card().get(2).getName());
+			card4.setText(Serveur.getInstance().partie().getList_Player().get(nbbbbb).getList_card().get(3).getName());
+			card5.setText(Serveur.getInstance().partie().getList_Player().get(nbbbbb).getList_card().get(4).getName());
+			card6.setText(Serveur.getInstance().partie().getList_Player().get(nbbbbb).getList_card().get(5).getName());
+			card7.setText(Serveur.getInstance().partie().getList_Player().get(nbbbbb).getList_card().get(6).getName());
+			nbbbbb++;
 		}
 
 	}
