@@ -44,6 +44,7 @@
 	<div id="feedback"></div>
 
 <script>
+
 	  var BatimentsIcon = L.Icon.extend({
 	  options: {
 		  iconSize:     [50, 50],
@@ -99,6 +100,8 @@
 			oldLat = data.result.departLatitude;
 			oldLng = data.result.departLongitude;
 
+			console.log("init");
+
 		},
 	});
 	// Création de la carte
@@ -107,6 +110,12 @@
 		center: [oldLat,oldLng],
 		zoom: 7
 	});
+
+	var move = {};
+	move["lat"] = oldLat;
+	move["lng"] =  oldLng;
+	var newIconLayer = L.layerGroup();
+	initIcons(exampleMap1, newIconLayer, move);
 
 	// Création d'un layer contenant les marqueurs à afficher
 	var mLayer = L.layerGroup().addTo(exampleMap1);
@@ -136,7 +145,13 @@
 				oldLat = data.result.departLatitude;
 				oldLng = data.result.departLongitude;
 				if(data.result.list_Player[idPlayer].state){
-					initIcons(exampleMap1);
+					var move = {};
+					move["lat"] = oldLat;
+					move["lng"] =  oldLng;
+					exampleMap1.removeLayer(newIconLayer);
+					newIconLayer=undefined;
+					newIconLayer=L.layerGroup();
+					initIcons(exampleMap1, newIconLayer, move);
 				}
 				else{
 				   console.log("Pas ton tour")
@@ -152,12 +167,12 @@
 		newIconLayer=undefined;
 		newIconLayer=L.layerGroup();
 
-		initIcons(exampleMap1, newIconLayer, e);
-
 		var move = {};
 		move["lat"] = e.latlng.lat;
 		move["lng"] =  e.latlng.lng;
 		move["idPlayer"] =  idPlayer;
+
+		initIcons(exampleMap1, newIconLayer, move);
 
 		exampleMap1.removeLayer(marker);
 
@@ -215,17 +230,10 @@
 		oldLng = parseFloat(e.latlng.lng);
 	};
 
-
-	var newIconLayer = L.layerGroup();
-
-	function initIcons(map, newIconLayer, e) {
+	function initIcons(map, newIconLayer, move) {
 
 		var search = {}
 		search["listTotal"]= $("#listTotal").val();
-
-		var move = {};
-		move["lat"] = e.latlng.lat;
-		move["lng"] =  e.latlng.lng;
 
 		$.ajax({
 			type : "POST",
