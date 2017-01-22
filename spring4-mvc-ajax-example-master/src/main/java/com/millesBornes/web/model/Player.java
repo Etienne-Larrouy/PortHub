@@ -26,7 +26,7 @@ public class Player {
 
 	@JsonView(Views.Public.class)
 	private boolean state;
-	
+
 	@FXML
 	private Button card1;
 	@FXML
@@ -41,7 +41,7 @@ public class Player {
 	private Button card6;
 	@FXML
 	private Button card7;
-	
+
 	public Player(String pseudo){
 		this.pseudo = pseudo;
 		this.distance = 0;
@@ -50,56 +50,56 @@ public class Player {
 		this.list_card_player = new ArrayList<>();
 		this.state = false;
 	}
-	
+
 	public int nb_card(){
 		return list_card_player.size();
 	}
-	
+
 	public void use_card(int nb_card){
-		
+
 		System.out.println("size list "+this.list_card_player.size());
-		
+
 		//Action
 		System.out.println("action : "+list_card_player.get(nb_card).getName());
 		//delelete cards
-		
+
 		//this.list_card_player.set(nb_card, null);
 		this.list_card_player.get(nb_card).setEtat(false);
 		//display_list_card();
 	}
-	
-	
+
+
 	public void add_card(Card card){
 		if(this.list_card_player.size()<7){
-			
+
 			this.list_card_player.add(card);
 		}else{
 			for(int i=0;i<this.list_card_player.size();i++){
 				if(this.list_card_player.get(i).isEtat()){
 					this.list_card_player.add(card);
-					
+
 				}
 			}
 		}
-		
-		
-		
-		
+
+
+
+
 	}
-	
+
 	public void display_list_card(){
 		for(int i =0; i<list_card_player.size();i++){
 			System.out.print(list_card_player.get(i).getName());
-				if(!list_card_player.get(i).isEtat()){
-					System.out.println("carte utilis�e.");
-				}else{
-					System.out.println("");
-				}
-				
+			if(!list_card_player.get(i).isEtat()){
+				System.out.println("carte utilis�e.");
+			}else{
+				System.out.println("");
+			}
+
 		}
 	}
-	
-	
+
+
 
 	public String getPseudo() {
 		return pseudo;
@@ -152,25 +152,5 @@ public class Player {
 
 	public void setSleep(int sleep) {
 		this.sleep = sleep;
-	}
-	
-	public static void main(String argv[]) throws Exception
-	{
-		
-		
-		Player p = new Player("p1");
-		
-		 String clientSentence;
-	       
-
-	       Socket clientSocket = new Socket("localhost", 3456);
-			
-	       BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-	       clientSentence = inFromServer.readLine();
-	       p.setList_card((ArrayList<Card>)ObjectUtil.fromString(clientSentence));
-
-			
-	       p.display_list_card();
-	       
 	}
 }

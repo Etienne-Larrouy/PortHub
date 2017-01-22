@@ -13,8 +13,6 @@ public class BrowserSample extends Application
 	@Override
 	public void start(final Stage primaryStage) throws IOException {
 		
-
-		
 		
 		SplitPane page =  (SplitPane) FXMLLoader.load(BrowserSample.class.getResource("/javafx/view/page_map.fxml"));
 		Scene scene = new Scene(page);

@@ -1,6 +1,8 @@
 package com.millesBornes.web.controller;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,16 +19,16 @@ import com.millesBornes.web.model.PagesJaunes;
 import com.server.Serveur;
 
 @RestController
-public class AjaxController {
-
+public class AjaxController{
+	Serveur s = Serveur.getInstance();
 
 	Move c;
 	@JsonView(Views.Public.class)
 	@RequestMapping(value = "/search/api/getCLickCoords")
 
 	public AjaxResponseInit getClickCoords(@RequestBody Move clickCoords) {
-		Serveur s = Serveur.getInstance();
-
+		
+		
 		
 		System.out.println(clickCoords.getLat());
 		System.out.println(clickCoords.getLng());
@@ -60,8 +62,9 @@ public class AjaxController {
 	@RequestMapping(value = "/search/api/initMap")
 	public AjaxResponseInit initMap() {
 		Serveur s = Serveur.getInstance();
-		
+	
 		AjaxResponseInit partie = new AjaxResponseInit();
+		
 		s.setPartie(new Part("", 2));
 		s.partie().add_player(new Player("José"));
 		Player p2 = new Player("Victor");
@@ -89,5 +92,6 @@ public class AjaxController {
 		return result;
 
 	}
+
 	
 }

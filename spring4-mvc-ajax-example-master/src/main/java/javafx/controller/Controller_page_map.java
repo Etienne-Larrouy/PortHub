@@ -60,31 +60,16 @@ public class Controller_page_map implements Initializable {
 		Browser browser = new Browser();
 		BrowserView browserView = new BrowserView(browser);
 
-		browser.loadURL("http://localhost:8080/spring4ajax/#");
+		browser.loadURL("http://localhost:8080/spring4ajax?p=0");
 
 		// map.getChildren().add(new Button("tttt"));
 		map.getChildren().add(browserView);
-
-		Serveur s = Serveur.getInstance();
-		s.setPartie(new Part("localhost", 1));
-		s.partie().add_player(new Player("p1"));
-
-		for (int i = 0; i < 7; i++) {
-			Card card = s.partie().give_card();
-			s.partie().getList_Player().get(0).add_card(card);
-		}
-
-		try{
-			ServerSocket welcomeSocket = new ServerSocket(3456);
-			Socket connectionSocket = welcomeSocket.accept();
-			DataOutputStream outToClient = new DataOutputStream(connectionSocket.getOutputStream());
-			String o = ObjectUtil.toString(s.partie().getList_Player().get(0).getList_card());
-			
-			outToClient.writeBytes(o);
-			connectionSocket.close();
-		}catch(IOException e){
-			e.printStackTrace();
-		}
+		
+		Serveur.getInstance().setPartie(new Part("localhost", 2));
+		Serveur.getInstance().partie().add_player(new Player("Bite"));
+		Serveur.getInstance().partie().add_player(new Player("Bite2"));
+		
+		
 	}
 
 	@FXML
