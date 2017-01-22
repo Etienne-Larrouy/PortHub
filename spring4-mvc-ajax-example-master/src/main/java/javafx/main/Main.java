@@ -26,7 +26,7 @@ public class Main extends Application {
 			scene.setRoot(page);
 			primaryStage.setScene(scene);
 			
-			BackgroundImage myBI= new BackgroundImage(new Image("/fond.png",800,800,false,true),
+			BackgroundImage myBI= new BackgroundImage(new Image("fond.png",800,800,false,true),
 			        BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
 			          BackgroundSize.DEFAULT);
 			page.setBackground(new Background(myBI));
