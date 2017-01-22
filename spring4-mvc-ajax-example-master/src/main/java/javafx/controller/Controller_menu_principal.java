@@ -7,8 +7,11 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.SplitPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class Controller_menu_principal implements Initializable{
@@ -25,27 +28,29 @@ public class Controller_menu_principal implements Initializable{
 	
 	@FXML
 	public void create_part() throws IOException{
-		Pane page =  (Pane) FXMLLoader.load(Controller_menu_principal.class.getResource("/javafx/view/menu_create.fxml"));
-		Scene scene = new Scene(page);
-		Stage stage = (Stage)pane.getScene().getWindow();
-		stage.setScene(scene);
-		scene.setRoot(page);
-		stage.setScene(scene);
-		stage.setResizable(false);
-		stage.show();
+
+		
+		 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/javafx/view/menu_create.fxml"));
+         Parent root1 = (Parent) fxmlLoader.load();
+         Stage stage = new Stage();
+         stage.setTitle("create party");
+         stage.setScene(new Scene(root1));  
+         stage.show();
 		
 	}
 	
 	@FXML
 	public void join_part() throws IOException{
-		Pane page =  (Pane) FXMLLoader.load(Controller_menu_principal.class.getResource("/javafx/view/menu_join.fxml"));
-		Scene scene = new Scene(page);
-		Stage stage = (Stage)pane.getScene().getWindow();
-		stage.setScene(scene);
-		scene.setRoot(page);
-		stage.setScene(scene);
-		stage.setResizable(false);
-		stage.show();
+		
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/javafx/view/page_map.fxml"));
+        Parent root1 = (Parent) fxmlLoader.load();
+        Stage stage = new Stage();
+        
+        stage.setTitle("create party");
+        stage.setScene(new Scene(root1));  
+        stage.show();
+        
+		
 		
 	}
 }

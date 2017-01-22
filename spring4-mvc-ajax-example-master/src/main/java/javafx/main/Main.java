@@ -2,6 +2,7 @@ package javafx.main;
 	
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
@@ -10,16 +11,15 @@ import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 
 public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			
-			
-		
 			Pane page =  (Pane) FXMLLoader.load(Main.class.getResource("/javafx/view/menu.fxml"));
 			Scene scene = new Scene(page);
 			primaryStage.setScene(scene);
@@ -32,6 +32,11 @@ public class Main extends Application {
 			page.setBackground(new Background(myBI));
 			primaryStage.setResizable(false);
 			primaryStage.show();
+			
+			
+			
+			
+			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
