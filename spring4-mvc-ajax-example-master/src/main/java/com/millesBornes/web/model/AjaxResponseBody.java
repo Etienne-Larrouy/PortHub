@@ -2,7 +2,7 @@ package com.millesBornes.web.model;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.millesBornes.web.jsonview.Views;
-import com.server.Server;
+import com.server.Serveur;
 
 public class AjaxResponseBody {
 	

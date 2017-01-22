@@ -1,6 +1,15 @@
 package com.millesBornes.web.model;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.InputStreamReader;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.ArrayList;
+
+import javafx.controller.ObjectUtil;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.millesBornes.web.jsonview.Views;
@@ -17,6 +26,21 @@ public class Player {
 
 	@JsonView(Views.Public.class)
 	private boolean state;
+	
+	@FXML
+	private Button card1;
+	@FXML
+	private Button card2;
+	@FXML
+	private Button card3;
+	@FXML
+	private Button card4;
+	@FXML
+	private Button card5;
+	@FXML
+	private Button card6;
+	@FXML
+	private Button card7;
 	
 	public Player(String pseudo){
 		this.pseudo = pseudo;
@@ -74,6 +98,8 @@ public class Player {
 				
 		}
 	}
+	
+	
 
 	public String getPseudo() {
 		return pseudo;
@@ -126,5 +152,25 @@ public class Player {
 
 	public void setSleep(int sleep) {
 		this.sleep = sleep;
+	}
+	
+	public static void main(String argv[]) throws Exception
+	{
+		
+		
+		Player p = new Player("p1");
+		
+		 String clientSentence;
+	       
+
+	       Socket clientSocket = new Socket("localhost", 3456);
+			
+	       BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+	       clientSentence = inFromServer.readLine();
+	       p.setList_card((ArrayList<Card>)ObjectUtil.fromString(clientSentence));
+
+			
+	       p.display_list_card();
+	       
 	}
 }

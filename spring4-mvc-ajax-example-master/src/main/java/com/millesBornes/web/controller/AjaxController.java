@@ -14,7 +14,7 @@ import com.millesBornes.web.model.Move;
 import com.millesBornes.web.model.Part;
 import com.millesBornes.web.model.Player;
 import com.millesBornes.web.model.PagesJaunes;
-import com.server.Server;
+import com.server.Serveur;
 
 @RestController
 public class AjaxController {
@@ -23,8 +23,13 @@ public class AjaxController {
 	Move c;
 	@JsonView(Views.Public.class)
 	@RequestMapping(value = "/search/api/getCLickCoords")
+<<<<<<< HEAD
 	public AjaxResponseInit getClickCoords(@RequestBody Move clickCoords) {
 		Server s = Server.getInstance();
+=======
+	public AjaxResponseBody getClickCoords(@RequestBody Move clickCoords) {
+		Serveur s = Serveur.getInstance();
+>>>>>>> branch 'master' of https://github.com/Etienne-Larrouy/PortHub.git
 		
 		System.out.println(clickCoords.getLat());
 		System.out.println(clickCoords.getLng());
@@ -57,7 +62,7 @@ public class AjaxController {
 	@JsonView(Views.Public.class)
 	@RequestMapping(value = "/search/api/initMap")
 	public AjaxResponseInit initMap() {
-		Server s = Server.getInstance();
+		Serveur s = Serveur.getInstance();
 		
 		AjaxResponseInit partie = new AjaxResponseInit();
 		s.setPartie(new Part("", 2));
