@@ -245,29 +245,26 @@
 			success : function(data) {
 			console.log("SUCCESS", data);
 
+
+
 	  	var databis = data.listTotal;
-
-		/*	newIconLayer=undefined;
-			newIconLayer=L.layerGroup();*/
-
-
 
 			var nb_banque=0, nb_nourriture=0, nb_garage=0, nb_dormir=0;
 
 	  	for (var i in databis){
-				if((databis[i].type=="banque")&&(nb_banque<1)){
+				if((databis[i].type=="banque")&&(nb_banque<15)&&(measure(move["lat"],move["lng"],databis[i].latitude,databis[i].longitude)<5000)){
 						var marker = L.marker([databis[i].latitude, databis[i].longitude],{icon: bankIcon}).addTo(newIconLayer);
 						nb_banque=nb_banque+1;
 				}
-				if((databis[i].type=="nourriture")&&(nb_nourriture<1)){
+				if((databis[i].type=="nourriture")&&(nb_nourriture<15)&(measure(move["lat"],move["lng"],databis[i].latitude,databis[i].longitude)<5000)){
 						var marker = L.marker([databis[i].latitude, databis[i].longitude],{icon: foodIcon}).addTo(newIconLayer);
 						nb_nourriture=nb_nourriture+1;
 				}
-				if((databis[i].type=="garage")&&(nb_garage<1)){
+				if((databis[i].type=="garage")&&(nb_garage<15)&(measure(move["lat"],move["lng"],databis[i].latitude,databis[i].longitude)<5000)){
 						var marker = L.marker([databis[i].latitude, databis[i].longitude],{icon: garageIcon}).addTo(newIconLayer);
 						nb_garage=nb_garage+1;
 				}
-				if((databis[i].type=="dormir")&&(nb_dormir<1)){
+				if((databis[i].type=="dormir")&&(nb_dormir<15)&(measure(move["lat"],move["lng"],databis[i].latitude,databis[i].longitude)<5000)){
 						var marker = L.marker([databis[i].latitude, databis[i].longitude],{icon: sleepIcon}).addTo(newIconLayer);
 						nb_dormir=nb_dormir+1;
 				}
@@ -279,6 +276,18 @@
 
 		});
 	}
+
+	function measure(lat1, lon1, lat2, lon2){  // generally used geo measurement function
+    var R = 6378.137; // Radius of earth in KM
+    var dLat = lat2 * Math.PI / 180 - lat1 * Math.PI / 180;
+    var dLon = lon2 * Math.PI / 180 - lon1 * Math.PI / 180;
+    var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+    Math.sin(dLon/2) * Math.sin(dLon/2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    var d = R * c;
+    return d * 1000; // meters
+}
 
 
 </script>
