@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="800.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafx.controller.Controller_menu_create">
+<AnchorPane fx:id="pane" prefHeight="800.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafx.controller.Controller_menu_create">
    <children>
       <Pane layoutX="-102.0" layoutY="-121.0" prefHeight="200.0" prefWidth="200.0" />
       <Label layoutX="287.0" layoutY="38.0" text="Create part" textAlignment="CENTER">

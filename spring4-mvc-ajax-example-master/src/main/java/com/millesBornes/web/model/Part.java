@@ -17,10 +17,10 @@ public class Part {
 	private double departLatitude= 48.00611;
 	@JsonView(Views.Public.class)
 	private double departLongitude= 0.199556;
-	
+	public int nbp;
 
 	public Part(String IP,int nb_player){
-		
+		nbp = 0;
 		this.IP = IP;
 		this.setNb_player(nb_player);
 		this.list_Player = new ArrayList<>(nb_player);
