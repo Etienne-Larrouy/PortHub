@@ -28,5 +28,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/license.jar"/>
+	<classpathentry kind="lib" path="lib/jxbrowser-6.11.1.jar"/>
+	<classpathentry kind="lib" path="lib/jxbrowser-win-6.11.1.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

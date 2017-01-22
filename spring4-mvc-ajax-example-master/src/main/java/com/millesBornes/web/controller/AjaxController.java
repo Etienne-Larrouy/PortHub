@@ -65,11 +65,6 @@ public class AjaxController{
 	
 		AjaxResponseInit partie = new AjaxResponseInit();
 		
-		s.setPartie(new Part("", 2));
-		s.partie().add_player(new Player("José"));
-		Player p2 = new Player("Victor");
-		p2.setState(true);
-		s.partie().add_player(p2);
 		partie.setResult(s.partie());
 		return partie;
 	}
