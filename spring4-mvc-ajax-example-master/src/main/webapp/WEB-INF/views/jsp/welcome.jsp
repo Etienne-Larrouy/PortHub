@@ -39,8 +39,9 @@
 <script src="${jqueryJs}"></script>
 </head>
  <body>
-
+	<button onCLick="refresh()">Refresh</button>
 	<div id="example-map-1" style="width:100%; height: 900px;"></div>
+	<div id="feedback"></div>
 
 <script>
 	  var BatimentsIcon = L.Icon.extend({
@@ -60,32 +61,89 @@
 	trafficIcon = new BatimentsIcon({iconUrl: '/spring4ajax/resources/core/css/images/traffic.png'});
 
    L.Mappy.setImgPath("/spring4ajax/resources/core/css/images/");
+	var  oldLat;
+	var  oldLng;
+	var idPlayer = 0;
+
+	var getUrlParameter = function getUrlParameter(sParam) {
+		var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+			sURLVariables = sPageURL.split('&'),
+			sParameterName,
+			i;
+
+		for (i = 0; i < sURLVariables.length; i++) {
+			sParameterName = sURLVariables[i].split('=');
+
+			if (sParameterName[0] === sParam) {
+				return sParameterName[1] === undefined ? true : sParameterName[1];
+			}
+		}
+	};
+
+	var idPlayer = getUrlParameter('p');
+	if(idPlayer==undefined){
+		while(true){
+			alert('Erreur nom joueur');
+		}
+	}
+
+	console.log("Player : " + idPlayer);
+
+	$.ajax({
+		type : "POST",
+		url: "${home}search/api/initMap",
+		contentType : "application/json",
+		async : false,
+		success : function(data) {
+			console.log("SUCCESS: ", data);
+			oldLat = data.result.departLatitude;
+			oldLng = data.result.departLongitude;
+
+		},
+	});
 	// Création de la carte
 	var exampleMap1 = new L.Mappy.Map("example-map-1", {
 		clientId: 'dri_24hducode',
-		center: [51.5,-0.09],
+		center: [oldLat,oldLng],
 		zoom: 7
 	});
-
-	var circle = L.circle([48.520603, -4.062577], {
-		color: 'red',
-		fillColor: '#f03',
-		fillOpacity: 0.5,
-		radius: 5000
-	}).addTo(exampleMap1).on("click", clickOnRange);
-
-
 
 	// Création d'un layer contenant les marqueurs à afficher
 	var mLayer = L.layerGroup().addTo(exampleMap1);
 	// Création d'un marqueur qu'on ajoute au layer
-	var marker = L.marker([48.520603, -4.062577]).addTo(exampleMap1);
+	var marker = L.marker([oldLat, oldLng]).addTo(exampleMap1);
 
 	// Désactivation des interactions utilisateurs
 	var  total = 0;
-	var  oldLat = 48.520603;
-	var  oldLng = -4.062577;
 	var radius = 5000;
+
+		circle = L.circle([oldLat, oldLng], {
+			color: 'red',
+			fillColor: '#f03',
+			fillOpacity: 0.5,
+			radius: radius
+		}).addTo(exampleMap1).on("click", clickOnRange);
+
+
+	function refresh() {
+		$.ajax({
+			type : "POST",
+			url: "${home}search/api/getInfo",
+			contentType : "application/json",
+			async : false,
+			success : function(data) {
+				console.log("SUCCESS: ", data);
+				oldLat = data.result.departLatitude;
+				oldLng = data.result.departLongitude;
+				if(data.result.list_Player[idPlayer].state){
+					initIcons(exampleMap1);
+				}
+				else{
+				   console.log("Pas ton tour")
+				}
+			},
+		});
+	}
 
 	function clickOnRange(e) {
 
@@ -99,6 +157,7 @@
 		var move = {};
 		move["lat"] = e.latlng.lat;
 		move["lng"] =  e.latlng.lng;
+		move["idPlayer"] =  idPlayer;
 
 		exampleMap1.removeLayer(marker);
 
@@ -188,19 +247,19 @@
 			var nb_banque=0, nb_nourriture=0, nb_garage=0, nb_dormir=0;
 
 	  	for (var i in databis){
-				if((databis[i].type=="banque")&&(nb_banque<15)){
+				if((databis[i].type=="banque")&&(nb_banque<1)){
 						var marker = L.marker([databis[i].latitude, databis[i].longitude],{icon: bankIcon}).addTo(newIconLayer);
 						nb_banque=nb_banque+1;
 				}
-				if((databis[i].type=="nourriture")&&(nb_nourriture<15)){
+				if((databis[i].type=="nourriture")&&(nb_nourriture<1)){
 						var marker = L.marker([databis[i].latitude, databis[i].longitude],{icon: foodIcon}).addTo(newIconLayer);
 						nb_nourriture=nb_nourriture+1;
 				}
-				if((databis[i].type=="garage")&&(nb_garage<15)){
+				if((databis[i].type=="garage")&&(nb_garage<1)){
 						var marker = L.marker([databis[i].latitude, databis[i].longitude],{icon: garageIcon}).addTo(newIconLayer);
 						nb_garage=nb_garage+1;
 				}
-				if((databis[i].type=="dormir")&&(nb_dormir<15)){
+				if((databis[i].type=="dormir")&&(nb_dormir<1)){
 						var marker = L.marker([databis[i].latitude, databis[i].longitude],{icon: sleepIcon}).addTo(newIconLayer);
 						nb_dormir=nb_dormir+1;
 				}

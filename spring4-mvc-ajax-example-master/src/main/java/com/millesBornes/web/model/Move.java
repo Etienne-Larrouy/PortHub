@@ -16,6 +16,17 @@ public class Move {
 	@JsonView(Views.Public.class)
 	int radius;
 	
+	@JsonView(Views.Public.class)
+	int idPlayer;
+	
+	public int getIdPlayer() {
+		return idPlayer;
+	}
+
+	public void setIdPlayer(int idPlayer) {
+		this.idPlayer = idPlayer;
+	}
+
 	public double getDistance() {
 		return distance;
 	}
