@@ -44,6 +44,7 @@
 	<div id="feedback"></div>
 
 <script>
+
 	  var BatimentsIcon = L.Icon.extend({
 	  options: {
 		  iconSize:     [50, 50],
@@ -99,6 +100,8 @@
 			oldLat = data.result.departLatitude;
 			oldLng = data.result.departLongitude;
 
+			console.log("init");
+
 		},
 	});
 	// Création de la carte
@@ -107,6 +110,12 @@
 		center: [oldLat,oldLng],
 		zoom: 7
 	});
+
+	var move = {};
+	move["lat"] = oldLat;
+	move["lng"] =  oldLng;
+	var newIconLayer = L.layerGroup();
+	initIcons(exampleMap1, newIconLayer, move);
 
 	// Création d'un layer contenant les marqueurs à afficher
 	var mLayer = L.layerGroup().addTo(exampleMap1);
@@ -136,7 +145,13 @@
 				oldLat = data.result.departLatitude;
 				oldLng = data.result.departLongitude;
 				if(data.result.list_Player[idPlayer].state){
-					initIcons(exampleMap1);
+					var move = {};
+					move["lat"] = oldLat;
+					move["lng"] =  oldLng;
+					exampleMap1.removeLayer(newIconLayer);
+					newIconLayer=undefined;
+					newIconLayer=L.layerGroup();
+					initIcons(exampleMap1, newIconLayer, move);
 				}
 				else{
 				   console.log("Pas ton tour")
@@ -147,10 +162,17 @@
 
 	function clickOnRange(e) {
 
+
+		exampleMap1.removeLayer(newIconLayer);
+		newIconLayer=undefined;
+		newIconLayer=L.layerGroup();
+
 		var move = {};
 		move["lat"] = e.latlng.lat;
 		move["lng"] =  e.latlng.lng;
 		move["idPlayer"] =  idPlayer;
+
+		initIcons(exampleMap1, newIconLayer, move);
 
 		exampleMap1.removeLayer(marker);
 
@@ -208,7 +230,7 @@
 		oldLng = parseFloat(e.latlng.lng);
 	};
 
-	function initIcons(map) {
+	function initIcons(map, newIconLayer, move) {
 
 		var search = {}
 		search["listTotal"]= $("#listTotal").val();
@@ -217,33 +239,44 @@
 			type : "POST",
 			contentType : "application/json",
 			url : "${home}search/api/test",
-			data : JSON.stringify(search),
+			data : JSON.stringify(move),
 			dataType : 'json',
 			timeout : 100000,
 			success : function(data) {
-			console.log("SUCCESS", data.listTotal[0]);
-		  var databis = data.listTotal;
-			var mLayer = L.layerGroup().addTo(map);
+			console.log("SUCCESS", data);
+
+	  	var databis = data.listTotal;
+
+		/*	newIconLayer=undefined;
+			newIconLayer=L.layerGroup();*/
+
+
+
 			var nb_banque=0, nb_nourriture=0, nb_garage=0, nb_dormir=0;
-		  for (var i in databis){
-				if((databis[i].type=="banque")&&(nb_banque<15)){
-						var marker = L.marker([databis[i].latitude, databis[i].longitude],{icon: bankIcon}).addTo(map);
+
+	  	for (var i in databis){
+				if((databis[i].type=="banque")&&(nb_banque<1)){
+						var marker = L.marker([databis[i].latitude, databis[i].longitude],{icon: bankIcon}).addTo(newIconLayer);
 						nb_banque=nb_banque+1;
 				}
-				if((databis[i].type=="nourriture")&&(nb_nourriture<15)){
-						var marker = L.marker([databis[i].latitude, databis[i].longitude],{icon: foodIcon}).addTo(map);
+				if((databis[i].type=="nourriture")&&(nb_nourriture<1)){
+						var marker = L.marker([databis[i].latitude, databis[i].longitude],{icon: foodIcon}).addTo(newIconLayer);
 						nb_nourriture=nb_nourriture+1;
 				}
-				if((databis[i].type=="garage")&&(nb_garage<15)){
-						var marker = L.marker([databis[i].latitude, databis[i].longitude],{icon: garageIcon}).addTo(map);
+				if((databis[i].type=="garage")&&(nb_garage<1)){
+						var marker = L.marker([databis[i].latitude, databis[i].longitude],{icon: garageIcon}).addTo(newIconLayer);
 						nb_garage=nb_garage+1;
 				}
-				if((databis[i].type=="dormir")&&(nb_dormir<15)){
-						var marker = L.marker([databis[i].latitude, databis[i].longitude],{icon: sleepIcon}).addTo(map);
+				if((databis[i].type=="dormir")&&(nb_dormir<1)){
+						var marker = L.marker([databis[i].latitude, databis[i].longitude],{icon: sleepIcon}).addTo(newIconLayer);
 						nb_dormir=nb_dormir+1;
 				}
 			}
+				newIconLayer.addTo(map);
 			}
+
+
+
 		});
 	}
 

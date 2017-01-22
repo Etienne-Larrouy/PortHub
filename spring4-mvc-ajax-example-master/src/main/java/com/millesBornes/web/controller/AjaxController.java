@@ -16,9 +16,9 @@ import com.millesBornes.web.model.Player;
 import com.millesBornes.web.model.PagesJaunes;
 import com.server.Serveur;
 
+
 @RestController
 public class AjaxController {
-
 
 	Move c;
 	@JsonView(Views.Public.class)
@@ -71,15 +71,21 @@ public class AjaxController {
 		return partie;
 	}
 	
+
 	// @ResponseBody, not necessary, since class is annotated with @RestController
 	// @RequestBody - Convert the json data into object (SearchCriteria) mapped by field name.
 	// @JsonView(Views.Public.class) - Optional, limited the json data display to client.
 	@JsonView(Views.Public.class)
 	@RequestMapping(value = "/search/api/test")
-	public PagesJaunes test() throws IOException {
-
+	public PagesJaunes test(@RequestBody Move clickCoords) throws IOException {
+		
+		String loc = "cZ"+clickCoords.getLng().toString()+","+clickCoords.getLat().toString();
+		
+		System.out.println(loc);
+		
 		PagesJaunes result = new PagesJaunes();
-		result.chargerLocations("cZ-4.062577,48.520603");
+		result.chargerLocations(loc);
+		
 		
 		for(int i =0 ; i < result.getListTotal().size(); i++){
 			System.out.println(result.getListTotal().get(i));
