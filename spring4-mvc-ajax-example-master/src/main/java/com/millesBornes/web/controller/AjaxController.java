@@ -73,20 +73,6 @@ public class AjaxController{
 	@RequestMapping(value = "/search/api/initMap")
 	public AjaxResponseInit initMap() {
 		Serveur s = Serveur.getInstance();
-	System.out.println("Création partie");
-		s.setPartie(new Part("", 2));
-		Player p1 = new Player("YETI1");
-		Player p2 = new Player("YETI2");
-
-		p1.setState(true);
-		s.partie().add_player(p1);
-		s.partie().add_player(p2);
-	
-		p1.setLat(s.partie().getDepartLatitude());
-		p1.setLng(s.partie().getDepartLongitude());
-		
-		p2.setLat(s.partie().getDepartLatitude());
-		p2.setLng(s.partie().getDepartLongitude());
 		
 		AjaxResponseInit partie = new AjaxResponseInit();
 		
