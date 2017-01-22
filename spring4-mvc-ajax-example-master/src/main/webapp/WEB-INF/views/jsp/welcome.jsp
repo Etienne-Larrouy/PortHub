@@ -41,7 +41,6 @@
  <body>
 
 	<div id="example-map-1" style="width:100%; height: 900px;"></div>
-	<div id="feedback"></div>
 
 <script>
 	  var BatimentsIcon = L.Icon.extend({
@@ -68,25 +67,34 @@
 		zoom: 7
 	});
 
-	var circle = L.circle([51.5, -0.09], {
+	var circle = L.circle([48.520603, -4.062577], {
 		color: 'red',
 		fillColor: '#f03',
 		fillOpacity: 0.5,
 		radius: 5000
 	}).addTo(exampleMap1).on("click", clickOnRange);
 
+
+
 	// Création d'un layer contenant les marqueurs à afficher
 	var mLayer = L.layerGroup().addTo(exampleMap1);
 	// Création d'un marqueur qu'on ajoute au layer
-	var marker = L.marker([51.5, -0.09]).addTo(exampleMap1);
+	var marker = L.marker([48.520603, -4.062577]).addTo(exampleMap1);
 
 	// Désactivation des interactions utilisateurs
 	var  total = 0;
-	var  oldLat = 51.5;
-	var  oldLng = -0.09;
+	var  oldLat = 48.520603;
+	var  oldLng = -4.062577;
 	var radius = 5000;
 
 	function clickOnRange(e) {
+
+
+		exampleMap1.removeLayer(newIconLayer);
+		newIconLayer=undefined;
+		newIconLayer=L.layerGroup();
+
+		initIcons(exampleMap1, newIconLayer, e);
 
 		var move = {};
 		move["lat"] = e.latlng.lat;
@@ -135,7 +143,6 @@
 				dataType : 'json',
 				success : function(data) {
 					console.log("SUCCESS: ", data);
-					addPoint(data);
 				},
 			});
 			},
@@ -148,44 +155,61 @@
 		oldLat = parseFloat(e.latlng.lat);
 		oldLng = parseFloat(e.latlng.lng);
 	};
-	 initIcons(exampleMap1);
 
-	function initIcons(map) {
+
+	var newIconLayer = L.layerGroup();
+
+	function initIcons(map, newIconLayer, e) {
 
 		var search = {}
 		search["listTotal"]= $("#listTotal").val();
+
+		var move = {};
+		move["lat"] = e.latlng.lat;
+		move["lng"] =  e.latlng.lng;
 
 		$.ajax({
 			type : "POST",
 			contentType : "application/json",
 			url : "${home}search/api/test",
-			data : JSON.stringify(search),
+			data : JSON.stringify(move),
 			dataType : 'json',
 			timeout : 100000,
 			success : function(data) {
-			console.log("SUCCESS", data.listTotal[0]);
+			console.log("SUCCESS", data);
+
 	  	var databis = data.listTotal;
-			var mLayer = L.layerGroup().addTo(map);
+
+		/*	newIconLayer=undefined;
+			newIconLayer=L.layerGroup();*/
+
+
+
 			var nb_banque=0, nb_nourriture=0, nb_garage=0, nb_dormir=0;
+
 	  	for (var i in databis){
 				if((databis[i].type=="banque")&&(nb_banque<15)){
-						var marker = L.marker([databis[i].latitude, databis[i].longitude],{icon: bankIcon}).addTo(map);
+						var marker = L.marker([databis[i].latitude, databis[i].longitude],{icon: bankIcon}).addTo(newIconLayer);
 						nb_banque=nb_banque+1;
 				}
 				if((databis[i].type=="nourriture")&&(nb_nourriture<15)){
-						var marker = L.marker([databis[i].latitude, databis[i].longitude],{icon: foodIcon}).addTo(map);
+						var marker = L.marker([databis[i].latitude, databis[i].longitude],{icon: foodIcon}).addTo(newIconLayer);
 						nb_nourriture=nb_nourriture+1;
 				}
 				if((databis[i].type=="garage")&&(nb_garage<15)){
-						var marker = L.marker([databis[i].latitude, databis[i].longitude],{icon: garageIcon}).addTo(map);
+						var marker = L.marker([databis[i].latitude, databis[i].longitude],{icon: garageIcon}).addTo(newIconLayer);
 						nb_garage=nb_garage+1;
 				}
 				if((databis[i].type=="dormir")&&(nb_dormir<15)){
-						var marker = L.marker([databis[i].latitude, databis[i].longitude],{icon: sleepIcon}).addTo(map);
+						var marker = L.marker([databis[i].latitude, databis[i].longitude],{icon: sleepIcon}).addTo(newIconLayer);
 						nb_dormir=nb_dormir+1;
 				}
 			}
+				newIconLayer.addTo(map);
 			}
+
+
+
 		});
 	}
 
