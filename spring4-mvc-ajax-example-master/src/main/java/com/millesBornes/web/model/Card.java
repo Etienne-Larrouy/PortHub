@@ -11,6 +11,7 @@ public class Card implements Serializable {
 	//Attributes
 	private String name;
 	private boolean etat;
+	private String url;
 
 	
 	public Card(String name){
@@ -35,6 +36,16 @@ public class Card implements Serializable {
 
 	public void setEtat(boolean etat) {
 		this.etat = etat;
+	}
+
+
+	public String getUrl() {
+		return url;
+	}
+
+
+	public void setUrl(String url) {
+		this.url = url;
 	}
 	
 }
