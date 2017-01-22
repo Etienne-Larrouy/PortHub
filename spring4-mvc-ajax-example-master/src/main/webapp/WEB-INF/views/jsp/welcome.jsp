@@ -39,7 +39,7 @@
 <script src="${jqueryJs}"></script>
 </head>
  <body>
-
+	<button onCLick="refresh()">Refresh</button>
 	<div id="example-map-1" style="width:100%; height: 900px;"></div>
 	<div id="feedback"></div>
 
@@ -61,9 +61,33 @@
 	trafficIcon = new BatimentsIcon({iconUrl: '/spring4ajax/resources/core/css/images/traffic.png'});
 
    L.Mappy.setImgPath("/spring4ajax/resources/core/css/images/");
-
 	var  oldLat;
 	var  oldLng;
+	var idPlayer = 0;
+
+	var getUrlParameter = function getUrlParameter(sParam) {
+		var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+			sURLVariables = sPageURL.split('&'),
+			sParameterName,
+			i;
+
+		for (i = 0; i < sURLVariables.length; i++) {
+			sParameterName = sURLVariables[i].split('=');
+
+			if (sParameterName[0] === sParam) {
+				return sParameterName[1] === undefined ? true : sParameterName[1];
+			}
+		}
+	};
+
+	var idPlayer = getUrlParameter('p');
+	if(idPlayer==undefined){
+		while(true){
+			alert('Erreur nom joueur');
+		}
+	}
+
+	console.log("Player : " + idPlayer);
 
 	$.ajax({
 		type : "POST",
@@ -74,10 +98,9 @@
 			console.log("SUCCESS: ", data);
 			oldLat = data.result.departLatitude;
 			oldLng = data.result.departLongitude;
+
 		},
 	});
-
-
 	// Création de la carte
 	var exampleMap1 = new L.Mappy.Map("example-map-1", {
 		clientId: 'dri_24hducode',
@@ -102,11 +125,32 @@
 		}).addTo(exampleMap1).on("click", clickOnRange);
 
 
+	function refresh() {
+		$.ajax({
+			type : "POST",
+			url: "${home}search/api/getInfo",
+			contentType : "application/json",
+			async : false,
+			success : function(data) {
+				console.log("SUCCESS: ", data);
+				oldLat = data.result.departLatitude;
+				oldLng = data.result.departLongitude;
+				if(data.result.list_Player[idPlayer].state){
+					initIcons(exampleMap1);
+				}
+				else{
+				   console.log("Pas ton tour")
+				}
+			},
+		});
+	}
+
 	function clickOnRange(e) {
 
 		var move = {};
 		move["lat"] = e.latlng.lat;
 		move["lng"] =  e.latlng.lng;
+		move["idPlayer"] =  idPlayer;
 
 		exampleMap1.removeLayer(marker);
 
@@ -151,7 +195,6 @@
 				dataType : 'json',
 				success : function(data) {
 					console.log("SUCCESS: ", data);
-					addPoint(data);
 				},
 			});
 			},
@@ -164,10 +207,6 @@
 		oldLat = parseFloat(e.latlng.lat);
 		oldLng = parseFloat(e.latlng.lng);
 	};
-
-
-	 initIcons(exampleMap1);
-
 
 	function initIcons(map) {
 

@@ -2,14 +2,20 @@ package com.millesBornes.web.model;
 
 import java.util.ArrayList;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.millesBornes.web.jsonview.Views;
+
 public class Player {
 
 	//Attributes
+	@JsonView(Views.Public.class)
 	private String pseudo;
 	private double distance;
 	private int hunger;
 	private int sleep;
 	private ArrayList<Card> list_card_player;
+
+	@JsonView(Views.Public.class)
 	private boolean state;
 	
 	public Player(String pseudo){

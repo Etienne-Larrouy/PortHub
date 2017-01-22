@@ -23,25 +23,35 @@ public class AjaxController {
 	Move c;
 	@JsonView(Views.Public.class)
 	@RequestMapping(value = "/search/api/getCLickCoords")
-	public AjaxResponseBody getClickCoords(@RequestBody Move clickCoords) {
+	public AjaxResponseInit getClickCoords(@RequestBody Move clickCoords) {
 		Server s = Server.getInstance();
 		
 		System.out.println(clickCoords.getLat());
 		System.out.println(clickCoords.getLng());
 		System.out.println(clickCoords.getDistance());
+		System.out.println(clickCoords.getIdPlayer());
+		
+		s.partie().getList_Player().get(clickCoords.getIdPlayer()).setState(false);
+		s.partie().getList_Player().get(clickCoords.getIdPlayer()%1).setState(true);
 		
 		s.partie().getList_Player().get(0).setDistance(s.partie().getList_Player().get(0).getDistance()+clickCoords.getDistance());;
 		
-		AjaxResponseBody move = new AjaxResponseBody();
-		Move c = new Move();
-		c.setLat(clickCoords.getLat());
-		c.setLng(clickCoords.getLng());
-		c.setRadius(5000);
-		move.setCode("200");
-		move.setMsg("Ca marche !!");
-		move.setResult(c);
-		return move;
+		AjaxResponseInit partie = new AjaxResponseInit();
+		
+		partie.setResult(s.partie());
+		return partie;
 	
+	}
+	
+	@JsonView(Views.Public.class)
+	@RequestMapping(value = "/search/api/getInfo")
+	public AjaxResponseInit getInfo() {
+		Server s = Server.getInstance();
+		
+		AjaxResponseInit partie = new AjaxResponseInit();
+
+		partie.setResult(s.partie());
+		return partie;
 	}
 	
 	@JsonView(Views.Public.class)
@@ -52,7 +62,9 @@ public class AjaxController {
 		AjaxResponseInit partie = new AjaxResponseInit();
 		s.setPartie(new Part("", 2));
 		s.partie().add_player(new Player("José"));
-		s.partie().add_player(new Player("Victor"));
+		Player p2 = new Player("Victor");
+		p2.setState(true);
+		s.partie().add_player(p2);
 		partie.setResult(s.partie());
 		return partie;
 	}
