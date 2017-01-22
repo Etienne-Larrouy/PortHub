@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="800.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafx.controller.Controller_menu_create">
+   <children>
+      <Pane layoutX="-102.0" layoutY="-121.0" prefHeight="200.0" prefWidth="200.0" />
+      <Label layoutX="287.0" layoutY="38.0" text="Create part" textAlignment="CENTER">
+         <font>
+            <Font size="46.0" />
+         </font>
+      </Label>
+      <Label layoutX="256.0" layoutY="173.0" text="Part's name" />
+      <TextField fx:id="part_name" layoutX="326.0" layoutY="169.0" />
+      <Label layoutX="238.0" layoutY="224.0" text="Number player" />
+      <TextField fx:id="nb_player" layoutX="326.0" layoutY="220.0" />
+      <Label layoutX="287.0" layoutY="277.0" text="Maps" />
+      <Button layoutX="374.0" layoutY="400.0" mnemonicParsing="false" onAction="#create_part" text="Create" />
+      <TextField fx:id="maps" layoutX="325.0" layoutY="273.0" />
+   </children>
+</AnchorPane>
