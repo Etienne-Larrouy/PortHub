@@ -9,8 +9,8 @@ public class Card_distance extends Card {
 	
 	private int distance;
 
-	public Card_distance(String name,int distance) {
-		super(name);
+	public Card_distance(String name,int distance,String url) {
+		super(name,url);
 		// TODO Auto-generated constructor stub
 		this.setDistance(distance);
 	}

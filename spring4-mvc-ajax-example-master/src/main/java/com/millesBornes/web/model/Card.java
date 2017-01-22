@@ -14,10 +14,11 @@ public class Card implements Serializable {
 	private String url;
 
 	
-	public Card(String name){
+	public Card(String name,String url){
 		
 		this.setName(name);
 		this.etat = true;
+		this.url = url;
 		
 	}
 

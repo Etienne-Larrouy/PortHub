@@ -65,48 +65,48 @@ public class Part {
 		
 		
 		for(int i=0;i<10;i++){
-			this.pack_card.add(new Card_distance("25kms", 25));
+			this.pack_card.add(new Card_distance("25kms", 25,"25.jpg"));
 		}
 		for(int i=0;i<10;i++){
-			this.pack_card.add(new Card_distance("50kms", 50));
+			this.pack_card.add(new Card_distance("50kms", 50,"50.jpg"));
 		}
 		for(int i=0;i<10;i++){
-			this.pack_card.add(new Card_distance("75kms", 75));
+			this.pack_card.add(new Card_distance("75kms", 75,"75.jpg"));
 		}
 		for(int i=0;i<12;i++){
-			this.pack_card.add(new Card_distance("100kms", 100));
+			this.pack_card.add(new Card_distance("100kms", 100,"100.jpg"));
 		}
 		for(int i=0;i<4;i++){
-			this.pack_card.add(new Card_distance("200kms", 200));
+			this.pack_card.add(new Card_distance("200kms", 200,"200.jpg"));
 		}
 		//46 cartes
 		for(int i=0;i<3;i++){
-			this.pack_card.add(new Card_Malus("malus", "accidente"));
+			this.pack_card.add(new Card_Malus("malus", "accidente","null"));
 		}
 		for(int i=0;i<3;i++){
-			this.pack_card.add(new Card_Malus("malus", "snow"));
+			this.pack_card.add(new Card_Malus("malus", "snow","null"));
 		}
 		for(int i=0;i<5;i++){
-			this.pack_card.add(new Card_Malus("malus", "traffic"));
+			this.pack_card.add(new Card_Malus("malus", "traffic","null"));
 		}
 		for(int i=0;i<3;i++){
-			this.pack_card.add(new Card_Malus("malus", "manif"));
+			this.pack_card.add(new Card_Malus("malus", "manif","null"));
 		}
 		for(int i=0;i<4;i++){
-			this.pack_card.add(new Card_Malus("malus", "fast"));
+			this.pack_card.add(new Card_Malus("malus", "fast","null"));
 		}
 		//64 cartes
 		for(int i=0;i<3;i++){
-			this.pack_card.add(new Card_bonus("bonus", "pickpocket"));
+			this.pack_card.add(new Card_bonus("bonus", "pickpocket","null"));
 		}
 		for(int i=0;i<6;i++){
-			this.pack_card.add(new Card_bonus("bonus", "coffee"));
+			this.pack_card.add(new Card_bonus("bonus", "coffee","null"));
 		}
 		for(int i=0;i<6;i++){
-			this.pack_card.add(new Card_bonus("bonus", "bouffe"));
+			this.pack_card.add(new Card_bonus("bonus", "bouffe","null"));
 		}
 		for(int i=0;i<6;i++){
-			this.pack_card.add(new Card_bonus("bonus", "car"));
+			this.pack_card.add(new Card_bonus("bonus", "car","null"));
 		}
 		//85	
 		System.out.println("pacquet initialis�");

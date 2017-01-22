@@ -5,8 +5,8 @@ public class Card_Malus extends Card{
 	
 	private String malus;
 
-	public Card_Malus(String name,String malus) {
-		super(name);
+	public Card_Malus(String name,String malus,String url) {
+		super(name,url);
 		// TODO Auto-generated constructor stub
 		this.malus = malus;
 	}

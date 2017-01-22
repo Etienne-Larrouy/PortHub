@@ -6,8 +6,8 @@ public class Card_bonus extends Card {
 	private String bonus;
 	private Player player;
 
-	public Card_bonus(String name,String bonus) {
-		super(name);
+	public Card_bonus(String name,String bonus,String url) {
+		super(name,url);
 		// TODO Auto-generated constructor stub
 		this.bonus = bonus;
 	}
