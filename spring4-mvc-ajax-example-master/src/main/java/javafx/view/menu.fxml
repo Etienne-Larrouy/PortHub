@@ -6,16 +6,22 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="pane" style="-fx-background-image: fond.png;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafx.controller.Controller_menu_principal">
+<AnchorPane fx:id="pane" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafx.controller.Controller_menu_principal">
    <children>
       <Pane fx:id="join_part" layoutX="6.0" prefHeight="800.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="-6.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label layoutX="304.0" layoutY="34.0" text="NAME">
+            <Label layoutX="192.0" layoutY="33.0" text="1024 Bornes">
                <font>
-                  <Font size="69.0" />
+                  <Font name="Corbel" size="82.0" />
                </font></Label>
-            <Button fx:id="create_part" layoutX="361.0" layoutY="288.0" mnemonicParsing="false" onAction="#create_part" text="Create part" />
-            <Button layoutX="369.0" layoutY="410.0" mnemonicParsing="false" onAction="#join_part" text="Join part" />
+            <Button fx:id="create_part" layoutX="231.0" layoutY="276.0" mnemonicParsing="false" onAction="#create_part" style="-fx-border-radius: 100;" text="Create party" textAlignment="CENTER">
+               <font>
+                  <Font size="50.0" />
+               </font></Button>
+            <Button layoutX="259.0" layoutY="444.0" mnemonicParsing="false" onAction="#join_part" style="-fx-border-radius: 100;" text="Join party" textAlignment="CENTER">
+               <font>
+                  <Font size="50.0" />
+               </font></Button>
          </children>
       </Pane>
    </children>
