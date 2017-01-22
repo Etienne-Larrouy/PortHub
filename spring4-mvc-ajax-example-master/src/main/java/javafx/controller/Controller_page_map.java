@@ -139,31 +139,103 @@ public class Controller_page_map implements Initializable {
 	@FXML
 	public void use_card(ActionEvent event) {
 		if (event.getSource() == card1) {
-			list_player.get(0).use_card(0);
+			//list_player.get(0).use_card(0);
+			if(Serveur.getInstance().partie().getList_Player().get(nbbbbb).getList_card().get(0).getName().contains("25"))
+				Serveur.getInstance().partie().getList_Player().get(nbbbbb).setRadius(25*1000);
+			if(Serveur.getInstance().partie().getList_Player().get(nbbbbb).getList_card().get(0).getName().contains("50"))
+				Serveur.getInstance().partie().getList_Player().get(nbbbbb).setRadius(50*1000);
+			if(Serveur.getInstance().partie().getList_Player().get(nbbbbb).getList_card().get(0).getName().contains("75"))
+				Serveur.getInstance().partie().getList_Player().get(nbbbbb).setRadius(75*1000);
+			if(Serveur.getInstance().partie().getList_Player().get(nbbbbb).getList_card().get(0).getName().contains("100"))
+				Serveur.getInstance().partie().getList_Player().get(nbbbbb).setRadius(100*1000);
+			if(Serveur.getInstance().partie().getList_Player().get(nbbbbb).getList_card().get(0).getName().contains("200"))
+				Serveur.getInstance().partie().getList_Player().get(nbbbbb).setRadius(200*1000);
+			
+			
 
 		}
 		if (event.getSource() == card2) {
 			list_player.get(0).use_card(1);
+			if(Serveur.getInstance().partie().getList_Player().get(nbbbbb).getList_card().get(1).getName().contains("25"))
+				Serveur.getInstance().partie().getList_Player().get(nbbbbb).setRadius(25*1000);
+			if(Serveur.getInstance().partie().getList_Player().get(nbbbbb).getList_card().get(1).getName().contains("50"))
+				Serveur.getInstance().partie().getList_Player().get(nbbbbb).setRadius(50*1000);
+			if(Serveur.getInstance().partie().getList_Player().get(nbbbbb).getList_card().get(1).getName().contains("75"))
+				Serveur.getInstance().partie().getList_Player().get(nbbbbb).setRadius(75*1000);
+			if(Serveur.getInstance().partie().getList_Player().get(nbbbbb).getList_card().get(1).getName().contains("100"))
+				Serveur.getInstance().partie().getList_Player().get(nbbbbb).setRadius(100*1000);
+			if(Serveur.getInstance().partie().getList_Player().get(nbbbbb).getList_card().get(1).getName().contains("200"))
+				Serveur.getInstance().partie().getList_Player().get(nbbbbb).setRadius(200*1000);
 
 		}
 		if (event.getSource() == card3) {
 			list_player.get(0).use_card(2);
+			if(Serveur.getInstance().partie().getList_Player().get(nbbbbb).getList_card().get(2).getName().contains("25"))
+				Serveur.getInstance().partie().getList_Player().get(nbbbbb).setRadius(25*1000);
+			if(Serveur.getInstance().partie().getList_Player().get(nbbbbb).getList_card().get(2).getName().contains("50"))
+				Serveur.getInstance().partie().getList_Player().get(nbbbbb).setRadius(50*1000);
+			if(Serveur.getInstance().partie().getList_Player().get(nbbbbb).getList_card().get(2).getName().contains("75"))
+				Serveur.getInstance().partie().getList_Player().get(nbbbbb).setRadius(75*1000);
+			if(Serveur.getInstance().partie().getList_Player().get(nbbbbb).getList_card().get(2).getName().contains("100"))
+				Serveur.getInstance().partie().getList_Player().get(nbbbbb).setRadius(100*1000);
+			if(Serveur.getInstance().partie().getList_Player().get(nbbbbb).getList_card().get(2).getName().contains("200"))
+				Serveur.getInstance().partie().getList_Player().get(nbbbbb).setRadius(200*1000);
 
 		}
 		if (event.getSource() == card4) {
 			list_player.get(0).use_card(3);
+			if(Serveur.getInstance().partie().getList_Player().get(nbbbbb).getList_card().get(3).getName().contains("25"))
+				Serveur.getInstance().partie().getList_Player().get(nbbbbb).setRadius(25*1000);
+			if(Serveur.getInstance().partie().getList_Player().get(nbbbbb).getList_card().get(3).getName().contains("50"))
+				Serveur.getInstance().partie().getList_Player().get(nbbbbb).setRadius(50*1000);
+			if(Serveur.getInstance().partie().getList_Player().get(nbbbbb).getList_card().get(3).getName().contains("75"))
+				Serveur.getInstance().partie().getList_Player().get(nbbbbb).setRadius(75*1000);
+			if(Serveur.getInstance().partie().getList_Player().get(nbbbbb).getList_card().get(3).getName().contains("100"))
+				Serveur.getInstance().partie().getList_Player().get(nbbbbb).setRadius(100*1000);
+			if(Serveur.getInstance().partie().getList_Player().get(nbbbbb).getList_card().get(3).getName().contains("200"))
+				Serveur.getInstance().partie().getList_Player().get(nbbbbb).setRadius(200*1000);
 
 		}
 		if (event.getSource() == card5) {
 			list_player.get(0).use_card(4);
+			if(Serveur.getInstance().partie().getList_Player().get(nbbbbb).getList_card().get(4).getName().contains("25"))
+				Serveur.getInstance().partie().getList_Player().get(nbbbbb).setRadius(25*1000);
+			if(Serveur.getInstance().partie().getList_Player().get(nbbbbb).getList_card().get(4).getName().contains("50"))
+				Serveur.getInstance().partie().getList_Player().get(nbbbbb).setRadius(50*1000);
+			if(Serveur.getInstance().partie().getList_Player().get(nbbbbb).getList_card().get(4).getName().contains("75"))
+				Serveur.getInstance().partie().getList_Player().get(nbbbbb).setRadius(75*1000);
+			if(Serveur.getInstance().partie().getList_Player().get(nbbbbb).getList_card().get(4).getName().contains("100"))
+				Serveur.getInstance().partie().getList_Player().get(nbbbbb).setRadius(100*1000);
+			if(Serveur.getInstance().partie().getList_Player().get(nbbbbb).getList_card().get(4).getName().contains("200"))
+				Serveur.getInstance().partie().getList_Player().get(nbbbbb).setRadius(200*1000);
 
 		}
 		if (event.getSource() == card6) {
 			list_player.get(0).use_card(5);
+			if(Serveur.getInstance().partie().getList_Player().get(nbbbbb).getList_card().get(5).getName().contains("25"))
+				Serveur.getInstance().partie().getList_Player().get(nbbbbb).setRadius(25*1000);
+			if(Serveur.getInstance().partie().getList_Player().get(nbbbbb).getList_card().get(5).getName().contains("50"))
+				Serveur.getInstance().partie().getList_Player().get(nbbbbb).setRadius(50*1000);
+			if(Serveur.getInstance().partie().getList_Player().get(nbbbbb).getList_card().get(5).getName().contains("75"))
+				Serveur.getInstance().partie().getList_Player().get(nbbbbb).setRadius(75*1000);
+			if(Serveur.getInstance().partie().getList_Player().get(nbbbbb).getList_card().get(5).getName().contains("100"))
+				Serveur.getInstance().partie().getList_Player().get(nbbbbb).setRadius(100*1000);
+			if(Serveur.getInstance().partie().getList_Player().get(nbbbbb).getList_card().get(5).getName().contains("200"))
+				Serveur.getInstance().partie().getList_Player().get(nbbbbb).setRadius(200*1000);
 
 		}
 		if (event.getSource() == card7) {
 			list_player.get(0).use_card(6);
+			if(Serveur.getInstance().partie().getList_Player().get(nbbbbb).getList_card().get(6).getName().contains("25"))
+				Serveur.getInstance().partie().getList_Player().get(nbbbbb).setRadius(25*1000);
+			if(Serveur.getInstance().partie().getList_Player().get(nbbbbb).getList_card().get(6).getName().contains("50"))
+				Serveur.getInstance().partie().getList_Player().get(nbbbbb).setRadius(50*1000);
+			if(Serveur.getInstance().partie().getList_Player().get(nbbbbb).getList_card().get(6).getName().contains("75"))
+				Serveur.getInstance().partie().getList_Player().get(nbbbbb).setRadius(75*1000);
+			if(Serveur.getInstance().partie().getList_Player().get(nbbbbb).getList_card().get(6).getName().contains("100"))
+				Serveur.getInstance().partie().getList_Player().get(nbbbbb).setRadius(100*1000);
+			if(Serveur.getInstance().partie().getList_Player().get(nbbbbb).getList_card().get(6).getName().contains("200"))
+				Serveur.getInstance().partie().getList_Player().get(nbbbbb).setRadius(200*1000);
 		}
 	}
 

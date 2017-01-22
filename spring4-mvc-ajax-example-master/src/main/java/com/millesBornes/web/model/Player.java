@@ -47,6 +47,16 @@ public class Player {
 	
 	@JsonView(Views.Public.class)
 	private double lng;
+	
+	private int radius;
+
+	public int getRadius() {
+		return radius;
+	}
+
+	public void setRadius(int radius) {
+		this.radius = radius;
+	}
 
 	public double getLat() {
 		return lat;
