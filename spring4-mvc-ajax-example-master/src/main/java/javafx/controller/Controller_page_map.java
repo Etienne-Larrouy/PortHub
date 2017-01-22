@@ -72,7 +72,6 @@ public class Controller_page_map implements Initializable {
 		}
 		if(!created)
 		{
-			
 			created = true;
 			System.out.println("coiuoucocu");
 			Browser browser = new Browser();
