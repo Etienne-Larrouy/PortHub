@@ -21,24 +21,23 @@ import com.server.Serveur;
 @RestController
 public class AjaxController{
 	Serveur s = Serveur.getInstance();
-
+	
+	String proche;
 	Move c;
 	@JsonView(Views.Public.class)
 	@RequestMapping(value = "/search/api/getCLickCoords")
 
 	public AjaxResponseInit getClickCoords(@RequestBody Move clickCoords) {
-		
-		
-		
+	
 		System.out.println(clickCoords.getLat());
 		System.out.println(clickCoords.getLng());
 		System.out.println(clickCoords.getDistance());
 		System.out.println(clickCoords.getIdPlayer());
-		
+		System.out.println("Au tour de "+clickCoords.getIdPlayer()%(s.partie().getNb_player()-1));
 		s.partie().getList_Player().get(clickCoords.getIdPlayer()).setState(false);
-		s.partie().getList_Player().get(clickCoords.getIdPlayer()%1).setState(true);
+		s.partie().getList_Player().get(clickCoords.getIdPlayer()%(s.partie().getNb_player()-1)+1).setState(true);
 		
-		s.partie().getList_Player().get(0).setDistance(s.partie().getList_Player().get(0).getDistance()+clickCoords.getDistance());;
+		s.partie().getList_Player().get(0).setDistance(s.partie().getList_Player().get(0).getDistance()+clickCoords.getDistance());
 		
 		AjaxResponseInit partie = new AjaxResponseInit();
 		
@@ -62,7 +61,13 @@ public class AjaxController{
 	@RequestMapping(value = "/search/api/initMap")
 	public AjaxResponseInit initMap() {
 		Serveur s = Serveur.getInstance();
-	
+	System.out.println("Création partie");
+		s.setPartie(new Part("", 2));
+		Player p = new Player("YETI");
+		p.setState(true);
+		s.partie().add_player(p);
+		s.partie().add_player(new Player("YETIIIIIIIIIIIIIIII"));
+		
 		AjaxResponseInit partie = new AjaxResponseInit();
 		
 		partie.setResult(s.partie());
@@ -74,10 +79,10 @@ public class AjaxController{
 	// @JsonView(Views.Public.class) - Optional, limited the json data display to client.
 	@JsonView(Views.Public.class)
 	@RequestMapping(value = "/search/api/test")
-	public PagesJaunes test() throws IOException {
+	public PagesJaunes test(@RequestBody Move clickCoords) throws IOException {
 
 		PagesJaunes result = new PagesJaunes();
-		result.chargerLocations("cZ-4.062577,48.520603");
+		result.chargerLocations("cZ"+clickCoords.getLng()+","+clickCoords.getLat());
 		
 		for(int i =0 ; i < result.getListTotal().size(); i++){
 			System.out.println(result.getListTotal().get(i));
@@ -86,6 +91,16 @@ public class AjaxController{
 		
 		return result;
 
+	}
+	
+	@JsonView(Views.Public.class)
+	@RequestMapping(value = "/search/api/proche")
+	public Move proche(@RequestBody Move clickCoords) throws IOException {	
+		Move result=new Move();
+		result.setProche(clickCoords.getProche());
+		proche=clickCoords.getProche();
+		System.out.println("Proche de "+proche+" ! ");
+		return result;
 	}
 
 	

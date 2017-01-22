@@ -19,6 +19,17 @@ public class Move {
 	@JsonView(Views.Public.class)
 	int idPlayer;
 	
+	@JsonView(Views.Public.class)
+	String proche;
+	
+	public String getProche() {
+		return proche;
+	}
+
+	public void setProche(String proche) {
+		this.proche = proche;
+	}
+
 	public int getIdPlayer() {
 		return idPlayer;
 	}

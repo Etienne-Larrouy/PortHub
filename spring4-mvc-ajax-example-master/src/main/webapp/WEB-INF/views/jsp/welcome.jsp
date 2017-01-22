@@ -240,40 +240,86 @@
 			contentType : "application/json",
 			url : "${home}search/api/test",
 			data : JSON.stringify(move),
-			dataType : 'json',
 			timeout : 100000,
 			success : function(data) {
-			console.log("SUCCESS", data);
-
-
-
+			console.log("SUCCESSY", data);
 	  	var databis = data.listTotal;
 
 			var nb_banque=0, nb_nourriture=0, nb_garage=0, nb_dormir=0;
 
 	  	for (var i in databis){
-				if((databis[i].type=="banque")&&(nb_banque<15)&&(measure(move["lat"],move["lng"],databis[i].latitude,databis[i].longitude)<5000)){
+					move["proche"]="";
+				if((databis[i].type=="banque")&&(nb_banque<10)&&(measure(move["lat"],move["lng"],databis[i].latitude,databis[i].longitude)<radius)){
 						var marker = L.marker([databis[i].latitude, databis[i].longitude],{icon: bankIcon}).addTo(newIconLayer);
 						nb_banque=nb_banque+1;
+						if((measure(move["lat"],move["lng"],databis[i].latitude,databis[i].longitude)<50)){
+							move["proche"]="banque";
+							$.ajax({
+								type : "POST",
+								contentType : "application/json",
+								url : "${home}search/api/proche",
+								data : JSON.stringify(move),
+								timeout : 100000,
+								success : function(data) {
+								console.log("proche sent")
+							}
+						});
 				}
-				if((databis[i].type=="nourriture")&&(nb_nourriture<15)&(measure(move["lat"],move["lng"],databis[i].latitude,databis[i].longitude)<5000)){
+			}
+				if((databis[i].type=="nourriture")&&(nb_nourriture<10)&(measure(move["lat"],move["lng"],databis[i].latitude,databis[i].longitude)<radius)){
 						var marker = L.marker([databis[i].latitude, databis[i].longitude],{icon: foodIcon}).addTo(newIconLayer);
 						nb_nourriture=nb_nourriture+1;
+						if((measure(move["lat"],move["lng"],databis[i].latitude,databis[i].longitude)<50)){
+							move["proche"]="nourriture";
+							$.ajax({
+								type : "POST",
+								contentType : "application/json",
+								url : "${home}search/api/proche",
+								data : JSON.stringify(move),
+								timeout : 100000,
+								success : function(data) {
+								console.log("proche sent")
+							}
+						});
 				}
-				if((databis[i].type=="garage")&&(nb_garage<15)&(measure(move["lat"],move["lng"],databis[i].latitude,databis[i].longitude)<5000)){
+				}
+				if((databis[i].type=="garage")&&(nb_garage<10)&(measure(move["lat"],move["lng"],databis[i].latitude,databis[i].longitude)<radius)){
 						var marker = L.marker([databis[i].latitude, databis[i].longitude],{icon: garageIcon}).addTo(newIconLayer);
 						nb_garage=nb_garage+1;
+						if((measure(move["lat"],move["lng"],databis[i].latitude,databis[i].longitude)<50)){
+							move["proche"]="garage";
+							$.ajax({
+								type : "POST",
+								contentType : "application/json",
+								url : "${home}search/api/proche",
+								data : JSON.stringify(move),
+								timeout : 100000,
+								success : function(data) {
+								console.log("proche sent")
+							}
+						});
 				}
-				if((databis[i].type=="dormir")&&(nb_dormir<15)&(measure(move["lat"],move["lng"],databis[i].latitude,databis[i].longitude)<5000)){
+				}
+				if((databis[i].type=="dormir")&&(nb_dormir<10)&(measure(move["lat"],move["lng"],databis[i].latitude,databis[i].longitude)<radius)){
 						var marker = L.marker([databis[i].latitude, databis[i].longitude],{icon: sleepIcon}).addTo(newIconLayer);
 						nb_dormir=nb_dormir+1;
+						if((measure(move["lat"],move["lng"],databis[i].latitude,databis[i].longitude)<50)){
+							move["proche"]="dormir";
+							$.ajax({
+								type : "POST",
+								contentType : "application/json",
+								url : "${home}search/api/proche",
+								data : JSON.stringify(move),
+								timeout : 100000,
+								success : function(data) {
+								console.log("proche sent")
+							}
+						});
+				}
 				}
 			}
 				newIconLayer.addTo(map);
 			}
-
-
-
 		});
 	}
 
