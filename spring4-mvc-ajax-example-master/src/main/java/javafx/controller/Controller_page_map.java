@@ -72,8 +72,6 @@ public class Controller_page_map implements Initializable {
 		{
 			created = true;
 			System.out.println("coiuoucocu");
-			System.out.println(Serveur.getInstance().partie().nbp);
-			Serveur.getInstance().partie().nbp++;
 			Browser browser = new Browser();
 			BrowserView browserView = new BrowserView(browser);
 
