@@ -13,6 +13,22 @@ public class Part {
 	private ArrayList<Card> pack_card;
 	private String IP;
 	private int nb_player;
+	public double getDepartLatitude() {
+		return departLatitude;
+	}
+
+	public void setDepartLatitude(double departLatitude) {
+		this.departLatitude = departLatitude;
+	}
+
+	public double getDepartLongitude() {
+		return departLongitude;
+	}
+
+	public void setDepartLongitude(double departLongitude) {
+		this.departLongitude = departLongitude;
+	}
+
 	@JsonView(Views.Public.class)
 	private double departLatitude= 48.00611;
 	@JsonView(Views.Public.class)

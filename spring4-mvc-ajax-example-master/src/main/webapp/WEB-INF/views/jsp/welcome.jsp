@@ -61,6 +61,20 @@
 	sleepIcon = new BatimentsIcon({iconUrl: '/spring4ajax/resources/core/css/images/sleep.png'}),
 	trafficIcon = new BatimentsIcon({iconUrl: '/spring4ajax/resources/core/css/images/traffic.png'});
 
+	  var PlayerIcon = L.Icon.extend({
+	  options: {
+		  iconSize:     [50, 50],
+		  iconAnchor:   [25, 50]
+	}
+	});
+
+
+	var iconJoueurs = [new PlayerIcon({iconUrl: '/spring4ajax/resources/core/css/images/iconJ1.png'}),
+	new PlayerIcon({iconUrl: '/spring4ajax/resources/core/css/images/iconJ2.png'}),
+	new PlayerIcon({iconUrl: '/spring4ajax/resources/core/css/images/iconJ3.png'}),
+	new PlayerIcon({iconUrl: '/spring4ajax/resources/core/css/images/iconJ4.png'})];
+
+
    L.Mappy.setImgPath("/spring4ajax/resources/core/css/images/");
 	var  oldLat;
 	var  oldLng;
@@ -111,6 +125,8 @@
 		zoom: 7
 	});
 
+
+
 	var move = {};
 	move["lat"] = oldLat;
 	move["lng"] =  oldLng;
@@ -119,8 +135,14 @@
 
 	// Création d'un layer contenant les marqueurs à afficher
 	var mLayer = L.layerGroup().addTo(exampleMap1);
-	// Création d'un marqueur qu'on ajoute au layer
-	var marker = L.marker([oldLat, oldLng]).addTo(exampleMap1);
+	// Création des marqueur qu'on ajoute au layer
+
+	var marker = [L.marker([oldLat, oldLng],{icon: iconJoueurs[0]}),
+				  L.marker([oldLat, oldLng],{icon: iconJoueurs[1]}),
+				  L.marker([oldLat, oldLng],{icon: iconJoueurs[2]}),
+				  L.marker([oldLat, oldLng],{icon: iconJoueurs[3]})];
+
+	marker[idPlayer] = L.marker([oldLat,oldLng],{icon: iconJoueurs[idPlayer]}).addTo(exampleMap1);
 
 	// Désactivation des interactions utilisateurs
 	var  total = 0;
@@ -145,6 +167,39 @@
 				oldLat = data.result.departLatitude;
 				oldLng = data.result.departLongitude;
 				if(data.result.list_Player[idPlayer].state){
+				if(idPlayer==0){
+			console.log(0);
+					exampleMap1.removeLayer(marker[1]);
+					exampleMap1.removeLayer(marker[2]);
+					exampleMap1.removeLayer(marker[3]);
+					marker[1] = L.marker([data.result.list_Player[1].lat,data.result.list_Player[1].lng],{icon: iconJoueurs[1]}).addTo(exampleMap1);
+					marker[2] = L.marker([data.result.list_Player[2].lat,data.result.list_Player[2].lng],{icon: iconJoueurs[2]}).addTo(exampleMap1);
+					marker[3] = L.marker([data.result.list_Player[3].lat,data.result.list_Player[3].lng],{icon: iconJoueurs[3]}).addTo(exampleMap1);
+
+				}else if(idPlayer==1){
+					exampleMap1.removeLayer(marker[0]);
+					exampleMap1.removeLayer(marker[2]);
+					exampleMap1.removeLayer(marker[3]);
+					marker[0] = L.marker([data.result.list_Player[0].lat,data.result.list_Player[0].lng],{icon: iconJoueurs[0]}).addTo(exampleMap1);
+					marker[2] = L.marker([data.result.list_Player[2].lat,data.result.list_Player[2].lng],{icon: iconJoueurs[2]}).addTo(exampleMap1);
+					marker[3] = L.marker([data.result.list_Player[3].lat,data.result.list_Player[3].lng],{icon: iconJoueurs[3]}).addTo(exampleMap1);
+				}else if(idPlayer==2){
+					exampleMap1.removeLayer(marker[0]);
+					exampleMap1.removeLayer(marker[1]);
+					exampleMap1.removeLayer(marker[3]);
+					marker[0] = L.marker([data.result.list_Player[0].lat,data.result.list_Player[0].lng],{icon: iconJoueurs[0]}).addTo(exampleMap1);
+					marker[1] = L.marker([data.result.list_Player[1].lat,data.result.list_Player[1].lng],{icon: iconJoueurs[1]}).addTo(exampleMap1);
+					marker[3] = L.marker([data.result.list_Player[3].lat,data.result.list_Player[3].lng],{icon: iconJoueurs[3]}).addTo(exampleMap1);
+				}else{
+					exampleMap1.removeLayer(marker[0]);
+					exampleMap1.removeLayer(marker[1]);
+					exampleMap1.removeLayer(marker[2]);
+					marker[0] = L.marker([data.result.list_Player[0].lat,data.result.list_Player[0].lng],{icon: iconJoueurs[0]}).addTo(exampleMap1);
+					marker[1] = L.marker([data.result.list_Player[1].lat,data.result.list_Player[1].lng],{icon: iconJoueurs[1]}).addTo(exampleMap1);
+					marker[2] = L.marker([data.result.list_Player[2].lat,data.result.list_Player[2].lng],{icon: iconJoueurs[2]}).addTo(exampleMap1);
+				}
+
+
 					var move = {};
 					move["lat"] = oldLat;
 					move["lng"] =  oldLng;
@@ -161,70 +216,82 @@
 	}
 
 	function clickOnRange(e) {
+		$.ajax({
+			type : "POST",
+			url: "${home}search/api/getInfo",
+			contentType : "application/json",
+			async : false,
+			success : function(data) {
+			if(data.result.list_Player[idPlayer].state){
+				exampleMap1.removeLayer(newIconLayer);
+					newIconLayer=undefined;
+					newIconLayer=L.layerGroup();
+
+					var move = {};
+					move["lat"] = e.latlng.lat;
+					move["lng"] =  e.latlng.lng;
+					move["idPlayer"] =  idPlayer;
+
+					initIcons(exampleMap1, newIconLayer, move);
+
+					var options = {
+						vehicle: L.Mappy.Vehicles.comcar,
+						cost: "length", // or "time" or "price"
+						gascost: 1.0,
+						gas: "petrol", // or diesel, lpg
+						nopass: 0, // 1 pour un trajet sans col
+						notoll: 0, // 1 pour un trajet sans péage
+						infotraffic: 0 // 1 pour un trajet avec trafic
+					};
 
 
-		exampleMap1.removeLayer(newIconLayer);
-		newIconLayer=undefined;
-		newIconLayer=L.layerGroup();
+					// On cherche les résultats pour "47 rue de charonne Paris"
+					L.Mappy.Services.route([L.latLng(e.latlng.lat, e.latlng.lng), L.latLng(oldLat, oldLng)],
+						options,
+						// Callback de succès
+						function(result) {
+							L.Mappy.route(result.routes).addTo(exampleMap1);
+							var summary = result.routes.route[0].summary;
+							var roadbook = result.routes.route[0].actions.action;
+							move["distance"] = (summary.length / 1000);
+							console.log("Distance : " + move["distance"]);
 
-		var move = {};
-		move["lat"] = e.latlng.lat;
-		move["lng"] =  e.latlng.lng;
-		move["idPlayer"] =  idPlayer;
+							$.ajax({
+								type : "POST",
+								url: "${home}search/api/getCLickCoords",
+								contentType : "application/json",
+								data : JSON.stringify(move),
+								dataType : 'json',
+								success : function(data) {
 
-		initIcons(exampleMap1, newIconLayer, move);
+										console.log("SUCCESS: ", data);
+										exampleMap1.removeLayer(marker[idPlayer]);
 
-		exampleMap1.removeLayer(marker);
+										//marker[idPlayer] = L.marker([e.latlng.lat,e.latlng.lng],{icon: iconJoueurs[idPlayer]}).addTo(exampleMap1);
+										exampleMap1.removeLayer(circle);
 
-		marker = L.marker([e.latlng.lat,e.latlng.lng]).addTo(exampleMap1);
-		exampleMap1.removeLayer(circle);
+										circle = L.circle([e.latlng.lat, e.latlng.lng], {
+											color: 'red',
+											fillColor: '#f03',
+											fillOpacity: 0.5,
+											radius: radius
+										}).addTo(exampleMap1).on("click", clickOnRange);
 
-		circle = L.circle([e.latlng.lat, e.latlng.lng], {
-			color: 'red',
-			fillColor: '#f03',
-			fillOpacity: 0.5,
-			radius: radius
-		}).addTo(exampleMap1).on("click", clickOnRange);
+								},
+							});
+						},
+						// Callback d'erreur
+						function(errorType) {
+							// Error during route calculation
+						}
+					);
+				}else{
+					alert("Not your turn");
+				}
 
-
-		var options = {
-			vehicle: L.Mappy.Vehicles.comcar,
-			cost: "length", // or "time" or "price"
-			gascost: 1.0,
-			gas: "petrol", // or diesel, lpg
-			nopass: 0, // 1 pour un trajet sans col
-			notoll: 0, // 1 pour un trajet sans péage
-			infotraffic: 0 // 1 pour un trajet avec trafic
-		};
-
-
-		// On cherche les résultats pour "47 rue de charonne Paris"
-		L.Mappy.Services.route([L.latLng(e.latlng.lat, e.latlng.lng), L.latLng(oldLat, oldLng)],
-			options,
-			// Callback de succès
-			function(result) {
-				L.Mappy.route(result.routes).addTo(exampleMap1);
-				var summary = result.routes.route[0].summary;
-				var roadbook = result.routes.route[0].actions.action;
-				move["distance"] = (summary.length / 1000);
-				console.log("Distance : " + move["distance"]);
-
-			$.ajax({
-				type : "POST",
-				url: "${home}search/api/getCLickCoords",
-				contentType : "application/json",
-				data : JSON.stringify(move),
-				dataType : 'json',
-				success : function(data) {
-					console.log("SUCCESS: ", data);
-				},
-			});
 			},
-			// Callback d'erreur
-			function(errorType) {
-				// Error during route calculation
-			}
-		);
+		});
+
 
 		oldLat = parseFloat(e.latlng.lat);
 		oldLng = parseFloat(e.latlng.lng);
@@ -243,11 +310,11 @@
 			timeout : 100000,
 			success : function(data) {
 			console.log("SUCCESSY", data);
-	  	var databis = data.listTotal;
+		  var databis = data.listTotal;
 
 			var nb_banque=0, nb_nourriture=0, nb_garage=0, nb_dormir=0;
 
-	  	for (var i in databis){
+		  for (var i in databis){
 					move["proche"]="";
 				if((databis[i].type=="banque")&&(nb_banque<10)&&(measure(move["lat"],move["lng"],databis[i].latitude,databis[i].longitude)<radius)){
 						var marker = L.marker([databis[i].latitude, databis[i].longitude],{icon: bankIcon}).addTo(newIconLayer);
@@ -324,15 +391,15 @@
 	}
 
 	function measure(lat1, lon1, lat2, lon2){  // generally used geo measurement function
-    var R = 6378.137; // Radius of earth in KM
-    var dLat = lat2 * Math.PI / 180 - lat1 * Math.PI / 180;
-    var dLon = lon2 * Math.PI / 180 - lon1 * Math.PI / 180;
-    var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
-    Math.sin(dLon/2) * Math.sin(dLon/2);
-    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-    var d = R * c;
-    return d * 1000; // meters
+	var R = 6378.137; // Radius of earth in KM
+	var dLat = lat2 * Math.PI / 180 - lat1 * Math.PI / 180;
+	var dLon = lon2 * Math.PI / 180 - lon1 * Math.PI / 180;
+	var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+	Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+	Math.sin(dLon/2) * Math.sin(dLon/2);
+	var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+	var d = R * c;
+	return d * 1000; // meters
 }
 
 

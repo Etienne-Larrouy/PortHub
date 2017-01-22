@@ -41,6 +41,28 @@ public class Player {
 	private Button card6;
 	@FXML
 	private Button card7;
+	
+	@JsonView(Views.Public.class)
+	private double lat;
+	
+	@JsonView(Views.Public.class)
+	private double lng;
+
+	public double getLat() {
+		return lat;
+	}
+
+	public void setLat(double string) {
+		this.lat = string;
+	}
+
+	public double getLng() {
+		return lng;
+	}
+
+	public void setLng(double lng) {
+		this.lng = lng;
+	}
 
 	public Player(String pseudo){
 		this.pseudo = pseudo;

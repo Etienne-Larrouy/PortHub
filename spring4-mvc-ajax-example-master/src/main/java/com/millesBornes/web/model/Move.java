@@ -5,10 +5,10 @@ import com.millesBornes.web.jsonview.Views;
 
 public class Move {
 	@JsonView(Views.Public.class)
-	String lat;
+	double lat;
 	
 	@JsonView(Views.Public.class)
-	String lng;
+	double lng;
 	
 	@JsonView(Views.Public.class)
 	double distance;
@@ -46,19 +46,19 @@ public class Move {
 		this.distance = distance;
 	}
 	
-	public String getLng() {
+	public double getLng() {
 		return lng;
 	}
 	
-	public void setLng(String lng) {
+	public void setLng(double lng) {
 		this.lng = lng;
 	}
 	
-	public String getLat() {
+	public double getLat() {
 		return lat;
 	}
 	
-	public void setLat(String lat) {
+	public void setLat(double lat) {
 		this.lat = lat;
 	}
 	
