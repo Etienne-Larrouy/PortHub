@@ -62,17 +62,18 @@
 
    L.Mappy.setImgPath("/spring4ajax/resources/core/css/images/");
 
-	var  oldLat = 51.5;
-	var  oldLng = -0.09;
+	var  oldLat;
+	var  oldLng;
 
 	$.ajax({
 		type : "POST",
 		url: "${home}search/api/initMap",
 		contentType : "application/json",
+		async : false,
 		success : function(data) {
 			console.log("SUCCESS: ", data);
-			oldLat = data.result.lat;
-			oldLat = data.result.lng;
+			oldLat = data.result.departLatitude;
+			oldLng = data.result.departLongitude;
 		},
 	});
 
@@ -87,13 +88,19 @@
 	// Création d'un layer contenant les marqueurs à afficher
 	var mLayer = L.layerGroup().addTo(exampleMap1);
 	// Création d'un marqueur qu'on ajoute au layer
-	var marker = L.marker([51.5, -0.09]).addTo(exampleMap1);
+	var marker = L.marker([oldLat, oldLng]).addTo(exampleMap1);
 
 	// Désactivation des interactions utilisateurs
 	var  total = 0;
-	var  oldLat = 51.5;
-	var  oldLng = -0.09;
 	var radius = 5000;
+
+		circle = L.circle([oldLat, oldLng], {
+			color: 'red',
+			fillColor: '#f03',
+			fillOpacity: 0.5,
+			radius: radius
+		}).addTo(exampleMap1).on("click", clickOnRange);
+
 
 	function clickOnRange(e) {
 

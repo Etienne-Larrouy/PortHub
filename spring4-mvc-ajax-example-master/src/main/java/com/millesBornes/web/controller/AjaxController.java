@@ -12,6 +12,7 @@ import com.millesBornes.web.model.AjaxResponseBody;
 import com.millesBornes.web.model.AjaxResponseInit;
 import com.millesBornes.web.model.Move;
 import com.millesBornes.web.model.Part;
+import com.millesBornes.web.model.Player;
 import com.millesBornes.web.model.PagesJaunes;
 import com.server.Serveur;
 
@@ -49,7 +50,9 @@ public class AjaxController {
 		Serveur s = Serveur.getInstance();
 		
 		AjaxResponseInit partie = new AjaxResponseInit();
-		
+		s.setPartie(new Part("", 2));
+		s.partie().add_player(new Player("José"));
+		s.partie().add_player(new Player("Victor"));
 		partie.setResult(s.partie());
 		return partie;
 	}
